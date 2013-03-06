@@ -13,6 +13,7 @@ import com.chihuo.dao.OrderItemDao;
 public class OrderItemDaoImp extends GenericDAOImp﻿<OrderItem, Integer> implements OrderItemDao{
 	public OrderItem queryByOrderAndRecipe(int oid, int rid) {
 		Criteria crit = getSession().createCriteria(OrderItem.class);
+		crit.add(Restrictions.eq("status", 0));
 		crit.createCriteria("order").add(Restrictions.eq("id", oid));
 		crit.createCriteria("recipe").add(Restrictions.eq("id", rid));
 		crit.setCacheable(true);

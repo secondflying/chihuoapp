@@ -3,6 +3,7 @@ package com.chihuo.service;
 import java.util.Date;
 import java.util.List;
 
+import org.ietf.jgss.Oid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,6 +65,18 @@ public class OrderService {
 		// TODO 在生成的code里面包含桌号，避免同时有相同code的order
 		order.setCode(Math.round(Math.random() * 9000 + 1000) + "");
 		dao.saveOrUpdate(order);
+		return order;
+	}
+	
+	public Order deposit(Order order) {
+		List<OrderItem> list = itemDao.queryByOrder(order.getId());
+		for (OrderItem orderItem : list) {
+			if (orderItem.getStatus() == 0) {
+				orderItem.setStatus(1);
+				itemDao.saveOrUpdate(orderItem);
+			}
+		}
+		order.setOrderItems(list);
 		return order;
 	}
 

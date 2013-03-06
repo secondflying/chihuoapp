@@ -197,6 +197,19 @@ public class OrderResource {
 		return Response.status(Response.Status.OK)
 				.type(MediaType.APPLICATION_JSON).build();
 	}
+	
+
+	// 下单
+	@Path("/deposit")
+	@PUT
+	// @RolesAllowed({ "USER,OWER,WAITER" })
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deposit() {
+		order = orderService.deposit(order);
+
+		return Response.status(Response.Status.OK).entity(order)
+				.type(MediaType.APPLICATION_JSON).build();
+	}
 
 	// 请求结账
 	@Path("/tocheck")
