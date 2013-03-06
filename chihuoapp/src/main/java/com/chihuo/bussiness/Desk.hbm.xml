@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-10-5 16:47:31 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.chihuo.bussiness.Desk" table="desk" lazy="false">
+        <cache usage="read-write" />
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="45" />
+        </property>
+        <property name="capacity" type="java.lang.Integer">
+            <column name="capacity" />
+        </property>
+        <many-to-one name="deskType" class="com.chihuo.bussiness.DeskType">
+            <column name="typeid" />
+        </many-to-one>
+        <many-to-one name="restaurant" class="com.chihuo.bussiness.Restaurant">
+            <column name="rid" />
+        </many-to-one>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" />
+        </property>
+        
+        <set name="orderList" table="orders" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="did" />
+            </key>
+            <one-to-many class="com.chihuo.bussiness.Order" />
+        </set>
+    </class>
+</hibernate-mapping>
