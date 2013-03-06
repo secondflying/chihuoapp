@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.HttpEntity;
@@ -38,7 +41,7 @@ public class HttpClientTest {
 	}
 
 
-	@Test
+//	@Test
 	public void 登录测试() throws ClientProtocolException, IOException {
 		HttpPost post = new HttpPost(rootUrl + "/wlogin");
 
@@ -61,7 +64,7 @@ public class HttpClientTest {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void 发送请求() throws ClientProtocolException, IOException {
 		HttpGet get = new HttpGet(rootUrl + "/test");
 		
@@ -77,6 +80,31 @@ public class HttpClientTest {
 
 		String str = showContent(entity.getContent());
 		System.out.println(str);
+	}
+	
+	@Test
+	public void 获取图片(){
+		try {
+			long startTime=System.currentTimeMillis();   //获取开始时间  
+			
+			URL url = new URL("http://taochike-menuimages.stor.sinaapp.com/big/dish_40.png");
+			URLConnection connection = url.openConnection();
+			connection.setUseCaches(true);
+			InputStream iStream=connection.getInputStream();
+			
+			long endTime=System.currentTimeMillis(); //获取结束时间  
+			System.out.println("图片时间： "+(endTime-startTime)+"ms"); 
+			
+//			Bitmap bmp=BitmapFactory.decodeStream(iStream);
+			iStream.close();
+
+			long endTime2=System.currentTimeMillis(); //获取结束时间  
+			System.out.println("生成图片时间： "+(endTime-endTime)+"ms");   
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
