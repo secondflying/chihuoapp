@@ -33,9 +33,9 @@
         <property name="status" type="java.lang.Integer">
             <column name="status" />
         </property>
-        <property name="price" type="java.lang.Double">
+        <!-- <property name="price" type="java.lang.Double">
             <column name="price" precision="22" scale="0" />
-        </property>
+        </property> -->
         <property name="money" type="java.lang.Double">
             <column name="money" precision="22" scale="0" />
         </property>

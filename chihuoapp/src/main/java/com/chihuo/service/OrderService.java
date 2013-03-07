@@ -58,7 +58,6 @@ public class OrderService {
 		order.setNumber(number);
 		order.setStarttime(new Date());
 		order.setStatus(1);
-		order.setPrice(0.0);
 		order.setRestaurant(restaurant);
 		order.setWaiter(u);
 
@@ -106,7 +105,6 @@ public class OrderService {
 		OrderItem item = itemDao.queryByOrderAndRecipe(order.getId(),
 				recipe.getId());
 
-		Order originOrder = dao.findById(order.getId());
 		int totalCount = 0;
 		if (item != null && item.getCount() != null) {
 			totalCount = item.getCount() + count;
@@ -125,23 +123,12 @@ public class OrderService {
 			}
 			
 			
-			item.setOrder(originOrder);
+			item.setOrder(order);
 			item.setRecipe(recipe);
 			item.setCount(totalCount);
 			item.setStatus(0);
 			itemDao.saveOrUpdate(item);
 		}
-		
-		List<OrderItem> list = itemDao.queryByOrder(order.getId());
-		double price = 0;
-		for (OrderItem orderItem : list) {
-			price += orderItem.getCount() * orderItem.getRecipe().getPrice();
-		}
-		originOrder.setPrice(price);
-		dao.saveOrUpdate(originOrder);
-		
-		order.setPrice(price);
-		order.setOrderItems(list);
 	}
 
 	// 改变菜的状态为已上

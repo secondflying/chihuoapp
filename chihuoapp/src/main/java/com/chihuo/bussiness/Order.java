@@ -4,15 +4,12 @@ package com.chihuo.bussiness;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.chihuo.util.JaxbDateSerializer;
@@ -38,8 +35,6 @@ public class Order implements java.io.Serializable {
 	private String code;
     
 	private Integer status;
-	
-	private Double price;
 	
 	private Double money;
 	
@@ -146,14 +141,6 @@ public class Order implements java.io.Serializable {
 		this.waiter = waiter;
 	}
 
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
 	public Double getMoney() {
 		return money;
 	}
@@ -191,6 +178,36 @@ public class Order implements java.io.Serializable {
 			return list;
 		}
 		return null;
+	}
+	
+	@XmlElement
+	public double getPriceAll(){
+		List<OrderClientItem> clientItems = getClientItems();
+		double price = 0;
+		for (OrderClientItem item : clientItems) {
+			price += (item.getCountNew() + item.getCountDeposit() + item.getCountConfirm()) * item.getRecipe().getPrice();
+		}
+		return price;
+	}
+	
+	@XmlElement
+	public double getPriceDeposit(){
+		List<OrderClientItem> clientItems = getClientItems();
+		double price = 0;
+		for (OrderClientItem item : clientItems) {
+			price += (item.getCountDeposit()) * item.getRecipe().getPrice();
+		}
+		return price;
+	}
+	
+	@XmlElement
+	public double getPriceConfirm(){
+		List<OrderClientItem> clientItems = getClientItems();
+		double price = 0;
+		for (OrderClientItem item : clientItems) {
+			price += (item.getCountConfirm()) * item.getRecipe().getPrice();
+		}
+		return price;
 	}
 	
 	

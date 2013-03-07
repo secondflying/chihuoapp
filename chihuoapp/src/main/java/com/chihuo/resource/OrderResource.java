@@ -75,28 +75,31 @@ public class OrderResource {
 		order.setOrderItems(list);
 		return order;
 	}
-	
+
 	@Path("QR")
 	@GET
 	@Produces("image/png")
 	public StreamingOutput getQRCode() {
 		if (order.getStatus() != 1) {
-			throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity("二维码错误")
+			throw new WebApplicationException(Response
+					.status(Response.Status.NOT_FOUND).entity("二维码错误")
 					.type(MediaType.TEXT_PLAIN).build());
 		}
-		
+
 		return new StreamingOutput() {
 			@Override
 			public void write(OutputStream output) throws IOException,
 					WebApplicationException {
-				String str = restaurant.getId() + "_" + order.getId();// 二维码内容  
+				String str = restaurant.getId() + "_" + order.getId();// 二维码内容
 				try {
-					BitMatrix byteMatrix = new MultiFormatWriter().encode(new String(str.getBytes("GBK"),"iso-8859-1"),  
-					        BarcodeFormat.QR_CODE, 200, 200);
-					MatrixToImageWriter.writeToStream(byteMatrix, "png", output); 
+					BitMatrix byteMatrix = new MultiFormatWriter().encode(
+							new String(str.getBytes("GBK"), "iso-8859-1"),
+							BarcodeFormat.QR_CODE, 200, 200);
+					MatrixToImageWriter
+							.writeToStream(byteMatrix, "png", output);
 				} catch (WriterException e) {
 					e.printStackTrace();
-				}  
+				}
 			}
 		};
 	}
@@ -126,6 +129,9 @@ public class OrderResource {
 		}
 
 		orderService.addMenu(order, recipe, count);
+
+		List<OrderItem> list = orderService.queryOrderItems(order.getId());
+		order.setOrderItems(list);
 
 		// 发送通知给服务员和其他点餐者
 		Device waiterDevice = deviceService.getWaiterDeviceByOrder(order);
@@ -197,7 +203,6 @@ public class OrderResource {
 		return Response.status(Response.Status.OK)
 				.type(MediaType.APPLICATION_JSON).build();
 	}
-	
 
 	// 下单
 	@Path("/deposit")
