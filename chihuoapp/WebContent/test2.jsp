@@ -7,9 +7,9 @@
 
 
 <%
-	String URL = "jdbc:mysql://w.rdc.sae.sina.com.cn:3307/app_taochike";//
-	String Username = "z554lkwnnx";
-	String Password = "zi02jk23mxxljjk30w35i0i415l243034m0z10m4";
+	String URL = "jdbc:mysql://sqld.duapp.com:4050/dOiqSXJRgvZDTVTWFzIA";//
+	String Username = "81Cw3Mww8yIuHcfcASjqd3cz";
+	String Password = "pQrAeNWMTA3DXqAPv1dU2IpTOU5zd7mr";
 	
 	String URL2 = "jdbc:mysql://192.168.1.102:3306/DinnerPlatform";//
 	String Username2 = "root";

@@ -21,27 +21,26 @@ import com.chihuo.util.JaxbDateSerializer;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Order implements java.io.Serializable {
 	private Integer id;
-	
+
 	private Desk desk;
-	
+
 	private Waiter waiter;
-	
+
 	private Integer number;
-	
+
 	private Date starttime;
-	
+
 	private Date endtime;
-    
+
 	private String code;
-    
+
 	private Integer status;
-	
+
 	private Double money;
-	
+
 	private List<OrderItem> orderItems;
-	
+
 	private Restaurant restaurant;
-	
 
 	public Order() {
 	}
@@ -91,7 +90,7 @@ public class Order implements java.io.Serializable {
 		this.number = number;
 	}
 
-    @XmlJavaTypeAdapter(JaxbDateSerializer.class)
+	@XmlJavaTypeAdapter(JaxbDateSerializer.class)
 	public Date getStarttime() {
 		return this.starttime;
 	}
@@ -100,7 +99,7 @@ public class Order implements java.io.Serializable {
 		this.starttime = starttime;
 	}
 
-    @XmlJavaTypeAdapter(JaxbDateSerializer.class)
+	@XmlJavaTypeAdapter(JaxbDateSerializer.class)
 	public Date getEndtime() {
 		return this.endtime;
 	}
@@ -148,14 +147,15 @@ public class Order implements java.io.Serializable {
 	public void setMoney(Double money) {
 		this.money = money;
 	}
-	
+
 	@XmlElement
-	public List<OrderClientItem> getClientItems(){
+	public List<OrderClientItem> getClientItems() {
 		if (this.orderItems != null && !this.orderItems.isEmpty()) {
 			List<OrderClientItem> list = new ArrayList<OrderClientItem>();
 			for (OrderItem item : orderItems) {
-				OrderClientItem o = queryByRecipe(item.getRecipe().getId(),list);
-				if(o == null){
+				OrderClientItem o = queryByRecipe(item.getRecipe().getId(),
+						list);
+				if (o == null) {
 					o = new OrderClientItem();
 					o.setCountNew(0);
 					o.setCountDeposit(0);
@@ -163,15 +163,15 @@ public class Order implements java.io.Serializable {
 					o.setRecipe(item.getRecipe());
 					list.add(o);
 				}
-				
+
 				if (item.getStatus() == 0) {
 					o.setCountNew(o.getCountNew() + item.getCount());
 				}
-				if(item.getStatus() == 1){
+				if (item.getStatus() == 1) {
 					o.setCountDeposit(o.getCountDeposit() + item.getCount());
 				}
-				
-				if(item.getStatus() == 2){
+
+				if (item.getStatus() == 2) {
 					o.setCountConfirm(o.getCountConfirm() + item.getCount());
 				}
 			}
@@ -179,44 +179,63 @@ public class Order implements java.io.Serializable {
 		}
 		return null;
 	}
-	
+
 	@XmlElement
-	public double getPriceAll(){
+	public double getPriceAll() {
 		List<OrderClientItem> clientItems = getClientItems();
 		double price = 0;
-		for (OrderClientItem item : clientItems) {
-			price += (item.getCountNew() + item.getCountDeposit() + item.getCountConfirm()) * item.getRecipe().getPrice();
+		if (clientItems != null && !clientItems.isEmpty()) {
+			for (OrderClientItem item : clientItems) {
+				price += (item.getCountNew() + item.getCountDeposit() + item
+						.getCountConfirm()) * item.getRecipe().getPrice();
+			}
 		}
 		return price;
 	}
-	
+
 	@XmlElement
-	public double getPriceDeposit(){
+	public double getPriceDeposit() {
 		List<OrderClientItem> clientItems = getClientItems();
 		double price = 0;
-		for (OrderClientItem item : clientItems) {
-			price += (item.getCountDeposit()) * item.getRecipe().getPrice();
+		if (clientItems != null && !clientItems.isEmpty()) {
+
+			for (OrderClientItem item : clientItems) {
+				price += (item.getCountDeposit()) * item.getRecipe().getPrice();
+			}
 		}
 		return price;
 	}
-	
+
 	@XmlElement
-	public double getPriceConfirm(){
+	public double getPriceConfirm() {
 		List<OrderClientItem> clientItems = getClientItems();
 		double price = 0;
-		for (OrderClientItem item : clientItems) {
-			price += (item.getCountConfirm()) * item.getRecipe().getPrice();
+		if (clientItems != null && !clientItems.isEmpty()) {
+			for (OrderClientItem item : clientItems) {
+				price += (item.getCountConfirm()) * item.getRecipe().getPrice();
+			}
 		}
 		return price;
 	}
-	
-	
-	private OrderClientItem queryByRecipe(Integer id,List<OrderClientItem> list){
+
+	private OrderClientItem queryByRecipe(Integer id, List<OrderClientItem> list) {
 		for (OrderClientItem orderClientItem : list) {
-			if(orderClientItem.getRecipe().getId() == id){
+			if (orderClientItem.getRecipe().getId() == id) {
 				return orderClientItem;
 			}
 		}
 		return null;
 	}
+
+	// private OrderItem queryByOrderItem(Integer recipeID, Integer itemStatus,
+	// List<OrderItem>list){
+	// for (OrderItem item : list) {
+	// if(item.getRecipe().getId() == recipeID && item.getStatus() ==
+	// itemStatus){
+	// return item;
+	// }
+	// }
+	// return null;
+	// }
+
 }
