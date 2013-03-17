@@ -85,5 +85,30 @@ public class MyUserResource {
 	               .header("Authorization", encry)
 	               .build();
 	}
+	
+	@POST
+	@Path("/register")
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response register(@FormParam("username") String username,
+			@FormParam("password") String password) {
+		User user = userService.findByName(username);
+		if (user != null) {
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity("该用户已存在").type(MediaType.TEXT_PLAIN).build();
+		}
+
+
+		User u = userService.create(username, password);
+
+		String encry = PublicHelper.encryptUser(u.getId(), u.getPassword(),
+				CodeUserType.USER);
+		return Response
+				.ok(u)
+				.cookie(new NewCookie(new javax.ws.rs.core.Cookie(
+						"Authorization", encry), "用户名",
+						NewCookie.DEFAULT_MAX_AGE, false))
+				.header("Authorization", encry).build();
+	}
 
 }

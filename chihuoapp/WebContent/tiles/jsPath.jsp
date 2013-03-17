@@ -52,7 +52,7 @@
 
 		//判断是否已登录
 		//获取用户信息，查看是否登录
-		$.get(RESTURL + "userinfo").success(function(data) {
+		$.get(RESTURL + "owner/userinfo").success(function(data) {
 			loginCallback(data);
 		}).error(function(xhr) {
 			logoutCallback();
@@ -78,7 +78,7 @@
 	}
 
 	function loginClick() {
-		options.url = RESTURL + "ologin";
+		options.url = RESTURL + "owner/login";
 		options.error = function(xhr, textStatus, errorThrown) {
 			var div = $("#login-modal");
 			div.animate({
@@ -109,8 +109,9 @@
 		$('#login-form').submit();
 		return false;
 	}
+	
 	function registerClick() {
-		options.url = RESTURL + "oregister";
+		options.url = RESTURL + "owner/register";
 		options.error = function(xhr, textStatus, errorThrown) {
 			var div = $("#signup-modal");
 			div.animate({
@@ -141,6 +142,7 @@
 		$('#register-form').submit();
 		return false;
 	}
+	
 	function logoutClick() {
 		$.ajax({
 			type : "POST",

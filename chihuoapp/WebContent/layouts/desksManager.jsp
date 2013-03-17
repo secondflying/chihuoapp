@@ -130,7 +130,7 @@
 		
 		/* 获取餐厅 */
 		function getRestaurants(){
-			$.getJSON(RESTURL + "user/restaurants", function(data) {
+			$.getJSON(RESTURL + "owner/restaurants", function(data) {
 				$.each(data, function(index, value) {
 					if (!isNaN(index)) {
 						console.log(value);//<li class="active"><a href="#">所有插件</a></li>

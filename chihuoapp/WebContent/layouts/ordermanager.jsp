@@ -110,7 +110,7 @@ body {
 		
 		/* 获取餐厅 */
 		function getRestaurants(){
-			$.getJSON(RESTURL + "user/restaurants", function(data) {
+			$.getJSON(RESTURL + "owner/restaurants", function(data) {
 				$.each(data, function(index, value) {
 					if (!isNaN(index)) {
 						console.log(value);

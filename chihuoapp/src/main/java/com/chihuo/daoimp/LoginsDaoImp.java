@@ -82,6 +82,7 @@ public class LoginsDaoImp extends GenericDAOImp﻿<Logins, Integer> implements L
 			history.setNumber(login.getOrder().getNumber());
 			history.setMoney(login.getOrder().getPriceAll());
 			history.setStatus(login.getOrder().getStatus());
+			history.setTime(login.getOrder().getStarttime());
 			historys.add(history);
 		}
 		return historys;
@@ -107,6 +108,7 @@ public class LoginsDaoImp extends GenericDAOImp﻿<Logins, Integer> implements L
 			history.setNumber(login.getOrder().getNumber());
 			history.setMoney(login.getOrder().getMoney());
 			history.setStatus(login.getOrder().getStatus());
+			history.setTime(login.getOrder().getStarttime());
 			historys.add(history);
 		}
 		return historys;

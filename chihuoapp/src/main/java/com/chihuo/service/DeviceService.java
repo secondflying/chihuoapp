@@ -1,5 +1,6 @@
 package com.chihuo.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -78,7 +79,7 @@ public class DeviceService {
 		}else if (device != null) {
 			return lDao.getHistoryOrderByDevice(device);
 		}
-		return null;
+		return new ArrayList<History>();
 	}
 }
 

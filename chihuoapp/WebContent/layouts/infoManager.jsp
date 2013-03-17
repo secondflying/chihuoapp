@@ -135,7 +135,7 @@ body {
 
 		/* 获取餐厅 */
 		function getRestaurants() {
-			$.getJSON(RESTURL + "user/restaurants",
+			$.getJSON(RESTURL + "owner/restaurants",
 					function(data) {
 						if (data.length > 0) {
 							var value = data[0];
