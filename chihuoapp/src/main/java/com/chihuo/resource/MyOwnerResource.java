@@ -30,10 +30,10 @@ import com.chihuo.util.PublicHelper;
 @Path("/owner")
 public class MyOwnerResource {
 	@Autowired
-	OwnerService ownerService;
+	private OwnerService ownerService;
 
 	@Autowired
-	RestaurantService restaurantService;
+	private RestaurantService restaurantService;
 
 	//获取我拥有的餐厅列表
 	@GET

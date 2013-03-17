@@ -1,18 +1,10 @@
 package com.chihuo.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.jpush.api.ErrorCodeEnum;
-import cn.jpush.api.JPushClient;
-import cn.jpush.api.MessageResult;
-
 import com.chihuo.bussiness.Device;
 import com.chihuo.util.CodeNotificationType;
-import com.chihuo.util.PublicConfig;
 
 @Service
 @Transactional

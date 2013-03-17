@@ -26,7 +26,6 @@ import com.chihuo.service.DeviceService;
 import com.chihuo.service.OrderService;
 import com.chihuo.service.RestaurantService;
 import com.chihuo.service.UserService;
-import com.chihuo.util.CodePlatform;
 import com.chihuo.util.CodeUserType;
 
 @Component

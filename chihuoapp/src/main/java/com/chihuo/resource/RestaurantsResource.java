@@ -25,7 +25,6 @@ import com.chihuo.bussiness.Owner;
 import com.chihuo.bussiness.Restaurant;
 import com.chihuo.service.OwnerService;
 import com.chihuo.service.RestaurantService;
-import com.chihuo.service.UserService;
 import com.sun.jersey.api.core.ResourceContext;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
@@ -40,9 +39,6 @@ public class RestaurantsResource {
 	@Autowired
 	private RestaurantService service;
 
-	@Autowired
-	private UserService userService;
-	
 	@Autowired
 	private OwnerService ownerService;
 

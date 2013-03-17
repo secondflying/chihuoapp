@@ -63,6 +63,7 @@ public class LoginsDaoImp extends GenericDAOImp﻿<Logins, Integer> implements L
 		return devices;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<History> getHistoryOrderByDevice(Device device) {
 		Criteria crit = getSession().createCriteria(Logins.class)
@@ -87,6 +88,7 @@ public class LoginsDaoImp extends GenericDAOImp﻿<Logins, Integer> implements L
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<History> getHistoryOrderByUser(User user) {
 		Criteria crit = getSession().createCriteria(Logins.class)
 				.add(Restrictions.eq("status", 0))

@@ -34,8 +34,6 @@ import com.chihuo.service.DeviceService;
 import com.chihuo.service.NotificationService;
 import com.chihuo.service.OrderService;
 import com.chihuo.service.RecipeService;
-import com.chihuo.service.UserService;
-import com.chihuo.service.WaiterService;
 import com.chihuo.util.CodeNotificationType;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -49,22 +47,16 @@ public class OrderResource {
 	Order order;
 
 	@Autowired
-	OrderService orderService;
+private OrderService orderService;
 
 	@Autowired
-	RecipeService recipeService;
+	private RecipeService recipeService;
 
 	@Autowired
-	DeviceService deviceService;
+	private DeviceService deviceService;
 
 	@Autowired
-	WaiterService waiterService;
-
-	@Autowired
-	UserService userService;
-
-	@Autowired
-	NotificationService notificationService;
+	private NotificationService notificationService;
 
 	@GET
 	// @RolesAllowed({ "USER,OWNER,WAITER" })

@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
 
 import com.chihuo.bussiness.Owner;
 import com.chihuo.bussiness.Restaurant;
-import com.chihuo.bussiness.User;
 import com.chihuo.service.OwnerService;
 import com.chihuo.service.RestaurantService;
 import com.chihuo.service.UserService;

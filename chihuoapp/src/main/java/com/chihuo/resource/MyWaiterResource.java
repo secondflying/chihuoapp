@@ -32,13 +32,13 @@ import com.chihuo.util.PublicHelper;
 public class MyWaiterResource {
 
 	@Autowired
-	WaiterService waiterService;
+	private WaiterService waiterService;
 
 	@Autowired
-	OrderService orderService;
+	private OrderService orderService;
 	
 	@Autowired
-	RestaurantService restaurantService;
+	private RestaurantService restaurantService;
 
 	//获取我开台的列表
 	@GET

@@ -42,22 +42,22 @@ public class OrdersResource {
 	Restaurant restaurant;
 	
 	@Context
-	ResourceContext resourceContext;
+	private ResourceContext resourceContext;
 
 	@Autowired
-	OrderService orderService;
+	private OrderService orderService;
 
 	@Autowired
-	DeskService deskService;
+	private DeskService deskService;
 
 	@Autowired
-	DeviceService deviceService;
+	private DeviceService deviceService;
 
 	@Autowired
-	WaiterService waiterService;
+	private WaiterService waiterService;
 	
 	@Autowired
-	UserService userService;
+	private UserService userService;
 
 	@GET
 	@RolesAllowed({ "USER,OWNER,WAITER" })

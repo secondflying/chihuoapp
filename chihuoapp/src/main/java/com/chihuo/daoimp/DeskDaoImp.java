@@ -43,6 +43,7 @@ public class DeskDaoImp extends GenericDAOImp﻿<Desk, Integer> implements DeskD
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public List<DeskStatusView> findByRestaurantWithStatus(Restaurant r) {
 		Query q = getSession().createQuery("SELECT d.id, d.name, d.capacity,d.deskType.id,o.id,o.waiter.id,o.status,o.code FROM Desk as d  LEFT JOIN d.orderList as o WITH(o.status=1) WHERE(d.restaurant.id=:rid and d.status != -1)");
 		q.setParameter("rid", r.getId());

@@ -1,20 +1,14 @@
 package com.chihuo.resource;
 
-import java.io.IOException;
-import java.io.OutputStream;
-
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.StreamingOutput;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,11 +18,6 @@ import com.chihuo.bussiness.DeskType;
 import com.chihuo.bussiness.Restaurant;
 import com.chihuo.service.DeskService;
 import com.chihuo.service.DeskTypeService;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
 import com.sun.jersey.multipart.FormDataParam;
 
 @Component

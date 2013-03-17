@@ -33,10 +33,10 @@ import com.chihuo.util.PublicHelper;
 @Path("/user")
 public class MyUserResource {
 	@Autowired
-	UserService userService;
+	private UserService userService;
 
 	@Autowired
-	DeviceService deviceService;
+	private DeviceService deviceService;
 
 	@GET
 	@Path("/history")

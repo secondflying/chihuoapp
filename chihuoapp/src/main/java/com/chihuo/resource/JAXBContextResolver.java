@@ -29,14 +29,17 @@ public class JAXBContextResolver implements ContextResolver<JAXBContext> {
 
 	private final JAXBContext context;
 
+	@SuppressWarnings("rawtypes")
 	private final Set<Class> types;
 
+	@SuppressWarnings("rawtypes")
 	private Class[] ctypes = { Restaurant.class, Category.class, Recipe.class,
 			Desk.class, DeskType.class, Order.class, OrderItem.class,OrderClientItem.class,
 			DeskStatusView.class, User.class, Waiter.class, Owner.class,History.class };
 
+	@SuppressWarnings("rawtypes")
 	public JAXBContextResolver() throws Exception {
-		this.types = new HashSet(Arrays.asList(ctypes));
+		this.types = new HashSet<Class>(Arrays.asList(ctypes));
 		this.context = new JSONJAXBContext(JSONConfiguration.natural().build(),
 				ctypes);
 	}

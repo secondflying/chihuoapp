@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.chihuo.bussiness.Owner;
 import com.chihuo.bussiness.Restaurant;
-import com.chihuo.bussiness.User;
 
 public interface RestaurantDao extends GenericDao<Restaurant, Integer> {
 
