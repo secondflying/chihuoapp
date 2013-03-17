@@ -13,9 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.chihuo.bussiness.Owner;
+import com.chihuo.bussiness.Recipe;
 import com.chihuo.bussiness.Restaurant;
-import com.chihuo.bussiness.User;
+import com.chihuo.dao.RecipeDao;
 import com.chihuo.dao.RestaurantDao;
+import com.chihuo.util.PinyinUtil;
 import com.chihuo.util.PublicHelper;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 
@@ -24,6 +27,9 @@ import com.sun.jersey.core.header.FormDataContentDisposition;
 public class RestaurantService {
 	@Autowired
 	private RestaurantDao dao;
+	
+	@Autowired
+	private RecipeDao dao2;
 
 	public Restaurant findById(int id) {
 		Restaurant c = dao.findById(id);
@@ -35,7 +41,8 @@ public class RestaurantService {
 	}
 
 	public List<Restaurant> getVerified() {
-		return dao.findByStatus(1);
+		//return dao.findByStatus(1);
+		return dao.findNotDeleted();
 	}
 
 	public List<Restaurant> getToVerify() {
@@ -50,7 +57,7 @@ public class RestaurantService {
 		return dao.findNotDeleted();
 	}
 
-	public List<Restaurant> findByUser(User u) {
+	public List<Restaurant> findByUser(Owner u) {
 		return dao.findByUser(u);
 	}
 
@@ -67,10 +74,11 @@ public class RestaurantService {
 
 	public Restaurant create(String name, String telephone, String address,
 			double x, double y, InputStream upImg,
-			FormDataContentDisposition fileDetail, User loginUser) {
+			FormDataContentDisposition fileDetail, Owner loginUser) {
 
 		Restaurant r = new Restaurant();
 		r.setName(name);
+		r.setPinyin(PinyinUtil.converterToFirstSpell(name));
 		r.setAddress(address);
 		r.setTelephone(telephone);
 		if (x != -1000) {
@@ -80,7 +88,7 @@ public class RestaurantService {
 			r.setY(y);
 		}
 		r.setStatus(0);
-		r.setUser(loginUser);
+		r.setOwner(loginUser);
 
 		if (upImg != null && !StringUtils.isEmpty(fileDetail.getFileName())) {
 			try {
@@ -100,14 +108,15 @@ public class RestaurantService {
 
 	public void update(String name, String telephone, String address, double x,
 			double y, InputStream upImg, FormDataContentDisposition fileDetail,
-			User loginUser, Restaurant r) {
+			Owner loginUser, Restaurant r) {
 
 		// 判断该餐馆是否是该用户所有
-		if (loginUser.getId() != r.getUser().getId()) {
+		if (loginUser.getId() != r.getOwner().getId()) {
 			throw new WebApplicationException(Response.Status.FORBIDDEN);
 		}
 
 		r.setName(name);
+		r.setPinyin(PinyinUtil.converterToFirstSpell(name));
 		r.setAddress(address);
 		r.setTelephone(telephone);
 		if (x != -1000) {
@@ -145,6 +154,21 @@ public class RestaurantService {
 	public void notverify(Restaurant restaurant) {
 		restaurant.setStatus(2);
 		dao.saveOrUpdate(restaurant);
+	}
+	
+	
+	public void addPinyin(){
+		List<Restaurant> list = dao.findAll();
+		for (Restaurant restaurant : list) {
+			restaurant.setPinyin(PinyinUtil.converterToFirstSpell(restaurant.getName()));
+			dao.saveOrUpdate(restaurant);
+		}
+		
+		List<Recipe>list2 = dao2.findAll();
+		for (Recipe recipe : list2) {
+			recipe.setPinyin(PinyinUtil.converterToFirstSpell(recipe.getName()));
+			dao2.saveOrUpdate(recipe);
+		}
 	}
 
 }

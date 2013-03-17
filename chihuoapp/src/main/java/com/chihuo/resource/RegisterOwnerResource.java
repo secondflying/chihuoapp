@@ -12,33 +12,33 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.chihuo.bussiness.User;
-import com.chihuo.service.UserService;
+import com.chihuo.bussiness.Owner;
+import com.chihuo.service.OwnerService;
 import com.chihuo.util.CodeUserType;
 import com.chihuo.util.PublicHelper;
 
 @Component
-@Path("/register")
-public class RegisterResource {
+@Path("/oregister")
+public class RegisterOwnerResource {
 	@Autowired
-	UserService userService;
+	OwnerService ownerService;
 
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response register(@FormParam("username") String username,
 			@FormParam("password") String password) {
-		User user = userService.findByName(username);
+		Owner user = ownerService.findByName(username);
 		if (user != null) {
 			return Response.status(Response.Status.BAD_REQUEST)
 					.entity("该用户已存在").type(MediaType.TEXT_PLAIN).build();
 		}
 
 
-		User u = userService.create(username, password);
+		Owner u = ownerService.create(username, password);
 
 		String encry = PublicHelper.encryptUser(u.getId(), u.getPassword(),
-				CodeUserType.USER);
+				CodeUserType.OWNER);
 		return Response
 				.ok(u)
 				.cookie(new NewCookie(new javax.ws.rs.core.Cookie(

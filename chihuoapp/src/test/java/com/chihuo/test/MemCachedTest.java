@@ -36,10 +36,9 @@ public class MemCachedTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void 登录测试() throws ClientProtocolException, IOException {
-		// MemcachedClient cache = new
-		// MemcachedClient(AddrUtil.getAddresses("127.0.0.1:11211"));
+//	@Test
+	public void memcahcedInSina() throws ClientProtocolException, IOException {
+		// MemcachedClient cache = new = MemcachedClient(AddrUtil.getAddresses("127.0.0.1:11211"));
 
 		SaeMemcache cache = new SaeMemcache("127.0.0.1", 11211);
 		cache.init();
@@ -52,6 +51,20 @@ public class MemCachedTest {
 
 		cache.set(key, value, 0);
 
+		System.out.println("Get Object after set :" + cache.get(key));
+
+	}
+	
+	@Test
+	public void memcahcedInLocal() throws ClientProtocolException, IOException {
+		MemcachedClient cache = new MemcachedClient(AddrUtil.getAddresses("127.0.0.1:11211"));
+
+		String key = "com.chihuo.bussiness.Order:0:4";
+//		String value = "tgesttesttest22222111";
+//		System.out.println("Get Object before set :" + cache.get(key));
+//
+//		cache.set(key, 0, value);
+		
 		System.out.println("Get Object after set :" + cache.get(key));
 
 	}

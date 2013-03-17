@@ -78,7 +78,7 @@
 	}
 
 	function loginClick() {
-		options.url = RESTURL + "login";
+		options.url = RESTURL + "ologin";
 		options.error = function(xhr, textStatus, errorThrown) {
 			var div = $("#login-modal");
 			div.animate({
@@ -110,7 +110,7 @@
 		return false;
 	}
 	function registerClick() {
-		options.url = RESTURL + "register";
+		options.url = RESTURL + "oregister";
 		options.error = function(xhr, textStatus, errorThrown) {
 			var div = $("#signup-modal");
 			div.animate({
@@ -148,7 +148,7 @@
 			cache : false,
 			success : function(data, textStatus, jqXHR) {
 				logoutCallback();
-				window.location.href = "index2.jsp";
+				window.location.href = "index.jsp";
 			},
 			error : function(xhr, textStatus, errorThrown) {
 				bootbox.alert(xhr.responseText);

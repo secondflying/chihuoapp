@@ -8,8 +8,10 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.chihuo.bussiness.Device;
+import com.chihuo.bussiness.History;
 import com.chihuo.bussiness.Logins;
 import com.chihuo.bussiness.Order;
+import com.chihuo.bussiness.User;
 import com.chihuo.dao.LoginsDao;
 import com.chihuo.util.CodeUserType;
 
@@ -59,5 +61,52 @@ public class LoginsDaoImp extends GenericDAOImp﻿<Logins, Integer> implements L
 			devices.add(login.getDevice());
 		}
 		return devices;
+	}
+
+	@Override
+	public List<History> getHistoryOrderByDevice(Device device) {
+		Criteria crit = getSession().createCriteria(Logins.class)
+				.add(Restrictions.eq("status", 0))
+				.add(Restrictions.eq("device.id", device.getId()))
+				.addOrder(org.hibernate.criterion.Order.desc("order.id"));
+		crit.setCacheable(true);
+		List<Logins> logins =  crit.list();
+		
+		List<History> historys = new ArrayList<History>();
+		for (Logins login : logins) {
+			History history = new History();
+			history.setRestaurant(login.getOrder().getRestaurant().getName());
+			history.setRid(login.getOrder().getRestaurant().getId());
+			history.setOid(login.getOrder().getId());
+			history.setNumber(login.getOrder().getNumber());
+			history.setMoney(login.getOrder().getPriceAll());
+			history.setStatus(login.getOrder().getStatus());
+			historys.add(history);
+		}
+		return historys;
+	}
+
+	@Override
+	public List<History> getHistoryOrderByUser(User user) {
+		Criteria crit = getSession().createCriteria(Logins.class)
+				.add(Restrictions.eq("status", 0))
+				.add(Restrictions.eq("uid", user.getId()))
+				.add(Restrictions.eq("utype", CodeUserType.USER))
+				.addOrder(org.hibernate.criterion.Order.desc("order.starttime"));
+		crit.setCacheable(true);
+		List<Logins> logins =  crit.list();
+		
+		List<History> historys = new ArrayList<History>();
+		for (Logins login : logins) {
+			History history = new History();
+			history.setRestaurant(login.getOrder().getRestaurant().getName());
+			history.setRid(login.getOrder().getRestaurant().getId());
+			history.setOid(login.getOrder().getId());
+			history.setNumber(login.getOrder().getNumber());
+			history.setMoney(login.getOrder().getMoney());
+			history.setStatus(login.getOrder().getStatus());
+			historys.add(history);
+		}
+		return historys;
 	}
 }

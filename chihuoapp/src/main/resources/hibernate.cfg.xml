@@ -14,7 +14,10 @@
         <!-- 定义二级缓存 -->
         <property name="hibernate.cache.use_second_level_cache">true</property>
 		<property name="hibernate.cache.use_query_cache">true</property>
+		
 		<property name="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</property>
+ 		<!-- <property name="hibernate.cache.provider_class">com.googlecode.hibernate.memcached.MemcachedCacheProvider</property>
+		<property name="hibernate.memcached.servers">localhost:11211</property> -->
  
         
         <mapping resource="com/chihuo/bussiness/Restaurant.hbm.xml" />
@@ -26,6 +29,7 @@
         <mapping resource="com/chihuo/bussiness/OrderItem.hbm.xml" />
         <mapping resource="com/chihuo/bussiness/Users.hbm.xml" />
         <mapping resource="com/chihuo/bussiness/Waiter.hbm.xml" />
+        <mapping resource="com/chihuo/bussiness/Owner.hbm.xml" />
         <mapping resource="com/chihuo/bussiness/Device.hbm.xml" />
         <mapping resource="com/chihuo/bussiness/Logins.hbm.xml" />
     </session-factory>

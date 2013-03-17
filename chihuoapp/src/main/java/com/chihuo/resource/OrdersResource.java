@@ -60,7 +60,7 @@ public class OrdersResource {
 	UserService userService;
 
 	@GET
-	@RolesAllowed({ "USER,OWER,WAITER" })
+	@RolesAllowed({ "USER,OWNER,WAITER" })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Order> getMyOrder(@Context SecurityContext securityContext) {
 		return orderService.findByRestaurant(restaurant);
@@ -104,7 +104,7 @@ public class OrdersResource {
 
 	@POST
 	@Path("code/{code}")
-	// @RolesAllowed({"USER,OWER,WAITER"})
+	// @RolesAllowed({"USER,OWNER,WAITER"})
 	@Produces("application/json; charset=UTF-8")
 	public Response joinOrder(@PathParam("code") String code,
 			@Context HttpServletRequest request,

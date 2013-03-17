@@ -34,7 +34,7 @@ public class CategoryResource {
 	}
 
 	@POST
-	@RolesAllowed({ "OWER" })
+	@RolesAllowed({ "OWNER" })
 	@Consumes("multipart/form-data")
 	public Response update(@FormDataParam("name") String name,
 			@FormDataParam("description") String description,
@@ -47,7 +47,7 @@ public class CategoryResource {
 	}
 
 	@DELETE
-	@RolesAllowed({ "OWER" })
+	@RolesAllowed({ "OWNER" })
 	public void delete() {
 		service.delete(category);
 	}

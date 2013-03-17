@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 2012-11-27 16:53:06 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.chihuo.bussiness.User" table="users" lazy="false">
+    <class name="com.chihuo.bussiness.Owner" table="owners" lazy="false">
         <cache usage="read-write" />
         <id name="id" type="java.lang.Integer">
             <column name="id" />

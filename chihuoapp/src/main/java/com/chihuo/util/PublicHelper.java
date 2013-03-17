@@ -18,9 +18,13 @@ import com.sina.sae.storage.SaeStorage;
 import com.sina.sae.util.SaeUserInfo;
 
 public class PublicHelper {
-	public static String encryptUser(Integer uid, String password, Integer utype) {
-		String token = DigestUtils.shaHex(StringUtils.join(new String[] {
+	public static String encryptPassword(Integer uid, String password) {
+		return DigestUtils.sha1Hex(StringUtils.join(new String[] {
 				uid.toString(), password }));
+	}
+	
+	public static String encryptUser(Integer uid, String password, Integer utype) {
+		String token = encryptPassword(uid,password);
 		return StringUtils.join(
 				new String[] { uid.toString(), token, utype.toString() }, '|');
 	}

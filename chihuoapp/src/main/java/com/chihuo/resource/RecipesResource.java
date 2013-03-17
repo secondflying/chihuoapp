@@ -68,7 +68,7 @@ public class RecipesResource {
 	}
 
 	@POST
-	@RolesAllowed({"OWER"})
+	@RolesAllowed({"OWNER"})
 	@Consumes("multipart/form-data")
 	public Response create(@FormDataParam("name") String name,
 			@FormDataParam("price") Double price,

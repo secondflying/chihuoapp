@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlType(propOrder={"id","name","price","description","image","cid"})
+@XmlType(propOrder={"id","name","price","description","image","pinyin","cid"})
 public class Recipe implements java.io.Serializable {
 	
 	private Integer id;
@@ -22,6 +22,7 @@ public class Recipe implements java.io.Serializable {
 	private String description;
 	private String image;
 	private Double price;
+	private String pinyin;
 	
 	private Integer status;
 	private Restaurant restaurant;
@@ -116,6 +117,15 @@ public class Recipe implements java.io.Serializable {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	@XmlElement
+	public String getPinyin() {
+		return pinyin;
+	}
+
+	public void setPinyin(String pinyin) {
+		this.pinyin = pinyin;
 	}
 
 }

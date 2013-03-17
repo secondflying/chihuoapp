@@ -80,10 +80,10 @@ public class OrderDaoImp extends GenericDAOImp﻿<Order, Integer> implements
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Order> findByWaiter(Restaurant r, Waiter u) {
+	public List<Order> findByWaiter(Waiter u) {
 		Criteria crit = getSession().createCriteria(Order.class);
 		crit = crit.add(Restrictions.eq("waiter.id", u.getId()));
-		crit = crit.add(Restrictions.eq("restaurant.id", r.getId()));
+		crit = crit.add(Restrictions.eq("restaurant.id", u.getRestaurant().getId()));
 		crit.setCacheable(true);
 
 		return (List<Order>) crit.list();

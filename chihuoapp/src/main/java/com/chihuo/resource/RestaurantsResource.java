@@ -21,8 +21,9 @@ import javax.ws.rs.core.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.chihuo.bussiness.Owner;
 import com.chihuo.bussiness.Restaurant;
-import com.chihuo.bussiness.User;
+import com.chihuo.service.OwnerService;
 import com.chihuo.service.RestaurantService;
 import com.chihuo.service.UserService;
 import com.sun.jersey.api.core.ResourceContext;
@@ -41,6 +42,9 @@ public class RestaurantsResource {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private OwnerService ownerService;
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -58,7 +62,7 @@ public class RestaurantsResource {
 	}
 
 	@POST
-	@RolesAllowed({ "OWER" })
+	@RolesAllowed({ "OWNER" })
 	@Consumes("multipart/form-data")
 	public Response create(@FormDataParam("name") String name,
 			@FormDataParam("telephone") String telephone,
@@ -69,7 +73,7 @@ public class RestaurantsResource {
 			@FormDataParam("image") FormDataContentDisposition fileDetail,
 			@Context SecurityContext securityContext) {
 
-		User loginUser = userService.getLoginUser(securityContext);
+		Owner loginUser = ownerService.getLoginOwner(securityContext);
 		Restaurant r = service.create(name, telephone, address, x, y, upImg,
 				fileDetail, loginUser);
 

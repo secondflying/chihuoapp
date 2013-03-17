@@ -9,40 +9,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.chihuo.bussiness.User;
-import com.chihuo.dao.UserDao;
+import com.chihuo.bussiness.Owner;
+import com.chihuo.dao.OwnerDao;
 
 @Service
 @Transactional
-public class UserService {
+public class OwnerService {
 	@Autowired
-	private UserDao dao;
+	private OwnerDao dao;
 
-	public User findById(Integer id) {
+	public Owner findById(Integer id) {
 		return dao.findById(id);
 	}
 
-	public User findByName(String name) {
+	public Owner findByName(String name) {
 		return dao.findByName(name);
 	}
 
-	public User findByNameAndPassword(String name, String password) {
+	public Owner findByNameAndPassword(String name, String password) {
 		return dao.findByNameAndPassword(name, password);
 	}
 	
-	public User create(String username, String password) {
-		User u = new User();
+	public Owner create(String username, String password) {
+		Owner u = new Owner();
 		u.setName(username);
 		u.setPassword(password);
 		dao.saveOrUpdate(u);
 		return u;
 	}
 
-	public User getLoginUser(SecurityContext securityContext) {
+	public Owner getLoginOwner(SecurityContext securityContext) {
 		Principal p = securityContext.getUserPrincipal();
 		if (p != null && StringUtils.isNotBlank(p.getName())) {
+			System.out.println("Principal:" + p.getName());
 			String[] tmp = StringUtils.split(p.getName(), ':');
-			if ("USER".equals(tmp[0])) {
+			if ("OWNER".equals(tmp[0])) {
 				int uid = Integer.parseInt(tmp[1]);
 				return dao.findById(uid);
 			}

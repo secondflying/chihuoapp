@@ -67,7 +67,7 @@ public class OrderResource {
 	NotificationService notificationService;
 
 	@GET
-	// @RolesAllowed({ "USER,OWER,WAITER" })
+	// @RolesAllowed({ "USER,OWNER,WAITER" })
 	@Produces("application/json; charset=UTF-8")
 	public Order get() {
 		List<OrderItem> list = orderService.queryOrderItems(order.getId());
@@ -106,7 +106,7 @@ public class OrderResource {
 
 	// 加减菜
 	@POST
-	// @RolesAllowed({ "USER,OWER,WAITER" })
+	// @RolesAllowed({ "USER,OWNER,WAITER" })
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response update(@FormParam("rid") int rid,
@@ -143,7 +143,7 @@ public class OrderResource {
 
 		String udid = request.getHeader("X-device");
 		for (Device device : userDevices) {
-			if (!device.getDeviceid().equals(udid)) {
+			if (device != null && !device.getDeviceid().equals(udid)) {
 				notificationService.sendNotifcationToUser(order.getId()
 						.toString(), CodeNotificationType.AddMenu, device);
 			}
@@ -161,7 +161,7 @@ public class OrderResource {
 	// 改变菜的状态，如已上，
 	@Path("{iid}")
 	@PUT
-	@RolesAllowed({ "OWER,WAITER" })
+	@RolesAllowed({ "OWNER,WAITER" })
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response alterOrderItemStatus(@PathParam("iid") int iid) {
 
@@ -207,7 +207,7 @@ public class OrderResource {
 	// 下单
 	@Path("/deposit")
 	@PUT
-	// @RolesAllowed({ "USER,OWER,WAITER" })
+	// @RolesAllowed({ "USER,OWNER,WAITER" })
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deposit() {
 		order = orderService.deposit(order);
@@ -219,7 +219,7 @@ public class OrderResource {
 	// 请求结账
 	@Path("/tocheck")
 	@PUT
-	// @RolesAllowed({ "USER,OWER,WAITER" })
+	// @RolesAllowed({ "USER,OWNER,WAITER" })
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response tocheck() {
 		order = orderService.toCheckOrder(order);
@@ -235,7 +235,7 @@ public class OrderResource {
 	// 结账
 	@Path("/check")
 	@PUT
-	@RolesAllowed({ "OWER,WAITER" })
+	@RolesAllowed({ "OWNER,WAITER" })
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response check() {
 		order = orderService.checkOrder(order);
@@ -247,7 +247,7 @@ public class OrderResource {
 	// 撤单
 	@Path("/cancel")
 	@PUT
-	@RolesAllowed({ "OWER,WAITER" })
+	@RolesAllowed({ "OWNER,WAITER" })
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response cancel() {
 		order = orderService.cancelOrder(order);

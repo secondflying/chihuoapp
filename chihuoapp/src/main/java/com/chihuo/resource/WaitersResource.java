@@ -37,7 +37,7 @@ public class WaitersResource {
 	}
 
 	@Path("{id}")
-	@RolesAllowed({ "OWER" })
+	@RolesAllowed({ "OWNER" })
 	@GET
 	@Produces("application/json; charset=UTF-8")
 	public Waiter getSingle(@PathParam("id") int id) {
@@ -48,7 +48,7 @@ public class WaitersResource {
 	}
 
 	@POST
-	@RolesAllowed({ "OWER" })
+	@RolesAllowed({ "OWNER" })
 	@Consumes("application/x-www-form-urlencoded")
 	public Response create(@FormParam("name") String name,
 			@FormParam("password") String password) {
@@ -68,7 +68,7 @@ public class WaitersResource {
 
 	@POST
 	@Path("{id}")
-	@RolesAllowed({ "OWER" })
+	@RolesAllowed({ "OWNER" })
 	@Consumes("application/x-www-form-urlencoded")
 	public void updateone(@PathParam("id") int id,
 			@FormParam("name") String name,
@@ -81,7 +81,7 @@ public class WaitersResource {
 	}
 
 	@Path("{id}")
-	@RolesAllowed({ "OWER" })
+	@RolesAllowed({ "OWNER" })
 	@DELETE
 	public void delete(@PathParam("id") int id) {
 		Waiter c = service.findByIdInRestaurant(restaurant, id);

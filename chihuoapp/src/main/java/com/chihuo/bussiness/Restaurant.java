@@ -35,7 +35,10 @@ public class Restaurant implements java.io.Serializable {
 	private Integer status;
 	
 	@XmlElement
-	private User user;
+	private String pinyin;
+	
+	@XmlElement
+	private Owner owner;
 	
 	public Restaurant() {
 	}
@@ -115,12 +118,20 @@ public class Restaurant implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public User getUser() {
-		return user;
+	public Owner getOwner() {
+		return owner;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setOwner(Owner user) {
+		this.owner = user;
+	}
+
+	public String getPinyin() {
+		return pinyin;
+	}
+
+	public void setPinyin(String pinyin) {
+		this.pinyin = pinyin;
 	}
 
 }

@@ -3,7 +3,6 @@ package com.chihuo.resource;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -17,48 +16,46 @@ import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.chihuo.bussiness.Device;
-import com.chihuo.bussiness.History;
-import com.chihuo.bussiness.User;
-import com.chihuo.service.DeviceService;
-import com.chihuo.service.UserService;
+import com.chihuo.bussiness.Owner;
+import com.chihuo.bussiness.Restaurant;
+import com.chihuo.service.OwnerService;
+import com.chihuo.service.RestaurantService;
 import com.chihuo.util.CodeUserType;
 import com.chihuo.util.PublicHelper;
 
 @Component
-@Path("/user")
-public class MyUserResource {
+@Path("/owner")
+public class MyOwnerResource {
 	@Autowired
-	UserService userService;
+	OwnerService ownerService;
 
 	@Autowired
-	DeviceService deviceService;
+	RestaurantService restaurantService;
 
+	//获取我拥有的餐厅列表
 	@GET
-	@Path("/history")
+	@RolesAllowed({ "OWNER" })
+	@Path("/restaurants")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<History> getMyHistory(@Context HttpServletRequest request,
+	public List<Restaurant> getMyRestaurants(
 			@Context SecurityContext securityContext) {
-		User user = userService.getLoginUser(securityContext);
-
-		Device device = null;
-		String udid = request.getHeader("X-device");
-		if (!StringUtils.isBlank(udid)) {
-			device = deviceService.findByUDID(udid);
+		Owner owner = ownerService.getLoginOwner(securityContext);
+		if (owner == null) {
+			throw new WebApplicationException(Response.status(Response.Status.BAD_REQUEST).entity("用户不存在")
+					.type(MediaType.TEXT_PLAIN).build());
 		}
-		return deviceService.getHistoryOrder(user, device);
+		return restaurantService.findByUser(owner);
 	}
 	
 	@GET
-	@RolesAllowed({"USER"})
+	@RolesAllowed({"OWNER" })
 	@Path("/userinfo")
 	@Produces(MediaType.APPLICATION_JSON)
-	public User get(@Context SecurityContext securityContext) {
-		User owner = userService.getLoginUser(securityContext);
+	public Owner get(@Context SecurityContext securityContext) {
+		Owner owner = ownerService.getLoginOwner(securityContext);
 		if (owner == null) {
 			throw new WebApplicationException(Response.status(Response.Status.BAD_REQUEST).entity("用户不存在")
 					.type(MediaType.TEXT_PLAIN).build());
@@ -71,15 +68,15 @@ public class MyUserResource {
 	@Path("/login")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces(MediaType.APPLICATION_JSON )
-	public Response login(@FormParam("username") String username, @FormParam("password") String password) {
+	public Response createCategory(@FormParam("username") String username, @FormParam("password") String password) {
 
-		User u = userService.findByNameAndPassword(username,password);
+		Owner u = ownerService.findByNameAndPassword(username,password);
 		if(u == null){
 			return Response.status(Response.Status.BAD_REQUEST)
 					.entity("用户名密码不匹配").type(MediaType.TEXT_PLAIN).build();
 		}
 		
-		String encry = PublicHelper.encryptUser(u.getId(), u.getPassword(),CodeUserType.USER);
+		String encry = PublicHelper.encryptUser(u.getId(), u.getPassword(),CodeUserType.OWNER);
 		return Response.ok(u)
 	               .cookie(new NewCookie(new javax.ws.rs.core.Cookie("Authorization", encry),"用户名",NewCookie.DEFAULT_MAX_AGE,false))
 	               .header("Authorization", encry)

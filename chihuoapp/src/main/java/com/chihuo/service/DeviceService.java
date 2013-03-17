@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.chihuo.bussiness.Device;
+import com.chihuo.bussiness.History;
 import com.chihuo.bussiness.Logins;
 import com.chihuo.bussiness.Order;
+import com.chihuo.bussiness.User;
 import com.chihuo.dao.DeviceDao;
 import com.chihuo.dao.LoginsDao;
 
@@ -44,8 +46,8 @@ public class DeviceService {
 		return device;
 	}
 	
+	//订单和设备间的关系
 	public Logins recordLogin(Order order, Device device, int uid, int utype) {
-		//订单和设备间的关系
 		Logins login = lDao.findByUserID(uid, utype,device,order);
 		if(login != null){
 			login.setLoginTime(new Date());
@@ -70,5 +72,13 @@ public class DeviceService {
 		return lDao.getWaiterDeviceByOrder(order);
 	}
 	
+	public List<History> getHistoryOrder(User user,Device device) {
+		if(user != null){
+			return lDao.getHistoryOrderByUser(user);
+		}else if (device != null) {
+			return lDao.getHistoryOrderByDevice(device);
+		}
+		return null;
+	}
 }
 

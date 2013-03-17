@@ -22,6 +22,6 @@ public interface OrderDao extends GenericDao<Order, Integer> {
 
 	public Order findByDesk(Restaurant r, int did);
 
-	public List<Order> findByWaiter(Restaurant r, Waiter u);
+	public List<Order> findByWaiter(Waiter u);
 
 }

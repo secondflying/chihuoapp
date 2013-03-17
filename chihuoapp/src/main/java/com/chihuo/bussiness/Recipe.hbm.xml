@@ -24,6 +24,9 @@
         <property name="description" type="string">
             <column name="description" length="45" />
         </property>
+        <property name="pinyin" type="string">
+            <column name="pinyin" length="45" />
+        </property>
         <property name="image" type="string">
             <column name="image" length="45" />
         </property>

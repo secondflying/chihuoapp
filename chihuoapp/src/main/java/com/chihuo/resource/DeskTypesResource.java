@@ -46,7 +46,7 @@ public class DeskTypesResource {
 	}
 
 	@POST
-	@RolesAllowed({ "OWER" })
+	@RolesAllowed({ "OWNER" })
 	@Consumes("multipart/form-data")
 	public Response create(@FormDataParam("name") String name) {
 		DeskType d = service.createOrUpdate(name, restaurant, new DeskType());
@@ -56,7 +56,7 @@ public class DeskTypesResource {
 
 	@Path("{id}")
 	@POST
-	@RolesAllowed({ "OWER" })
+	@RolesAllowed({ "OWNER" })
 	@Consumes("multipart/form-data")
 	public Response update(@PathParam("id") int id,
 			@FormDataParam("name") String name) {
@@ -70,7 +70,7 @@ public class DeskTypesResource {
 
 	@Path("{id}")
 	@DELETE
-	@RolesAllowed({ "OWER" })
+	@RolesAllowed({ "OWNER" })
 	public void delete(@PathParam("id") int id) {
 		DeskType c = service.findByIdInRestaurant(restaurant, id);
 		checkNull(c);

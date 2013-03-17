@@ -7,19 +7,12 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import com.chihuo.bussiness.Owner;
 import com.chihuo.bussiness.Restaurant;
-import com.chihuo.bussiness.User;
 import com.chihuo.dao.RestaurantDao;
 
 @Repository
 public class RestaurantDaoImp  extends GenericDAOImp﻿<Restaurant, Integer> implements RestaurantDao{
-//	@Override
-//	public Restaurant findById(Integer id) {
-//		Criteria crit = getSession().createCriteria(Restaurant.class)
-//				.add(Restrictions.eq("id", id))
-//				.add(Restrictions.not(Restrictions.eq("status", -1)));
-//		return (Restaurant) crit.uniqueResult();
-//	}
 
 	@SuppressWarnings("unchecked")
 	public List<Restaurant> findByStatus(int status) {
@@ -38,9 +31,9 @@ public class RestaurantDaoImp  extends GenericDAOImp﻿<Restaurant, Integer> imp
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Restaurant> findByUser(User u) {
+	public List<Restaurant> findByUser(Owner u) {
 		Criteria crit = getSession().createCriteria(Restaurant.class)
-				.createCriteria("user").add(Restrictions.eq("id", u.getId()));
+				.createCriteria("owner").add(Restrictions.eq("id", u.getId()));
 		crit.setCacheable(true);
 		return (List<Restaurant>) crit.list();
 	}

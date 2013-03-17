@@ -27,10 +27,13 @@
         <property name="y" type="java.lang.Double">
             <column name="y" precision="22" scale="0" />
         </property>
+        <property name="pinyin" type="string">
+            <column name="pinyin" length="45" />
+        </property>
         <property name="status" type="java.lang.Integer">
             <column name="status" />
         </property>
-        <many-to-one column="uid" name="user" class="com.chihuo.bussiness.User">
+        <many-to-one column="uid" name="owner" class="com.chihuo.bussiness.Owner">
         </many-to-one>
     </class>
 </hibernate-mapping>

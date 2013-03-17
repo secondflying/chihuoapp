@@ -50,7 +50,7 @@ public class DeskResource {
 	
 
 	@POST
-	@RolesAllowed({"OWER"})
+	@RolesAllowed({"OWNER"})
 	@Consumes("multipart/form-data")
 	public Response update(@FormDataParam("name") String name,
 			@FormDataParam("capacity") int capacity,
@@ -72,7 +72,7 @@ public class DeskResource {
 	
 
 	@DELETE
-	@RolesAllowed({"OWER"})
+	@RolesAllowed({"OWNER"})
 	public void delete() {
 		deskService.delete(desk);
 	}

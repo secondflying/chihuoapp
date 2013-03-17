@@ -41,7 +41,7 @@ public class RecipeResource {
 	}
 
 	@POST
-	@RolesAllowed({ "OWER" })
+	@RolesAllowed({ "OWNER" })
 	@Consumes("multipart/form-data")
 	public Response update(@FormDataParam("name") String name,
 			@FormDataParam("price") Double price,
@@ -66,7 +66,7 @@ public class RecipeResource {
 	}
 
 	@DELETE
-	@RolesAllowed({ "OWER" })
+	@RolesAllowed({ "OWNER" })
 	public void delete() {
 		recipeService.delete(recipe);
 	}

@@ -26,8 +26,8 @@ public class OrderService {
 	@Autowired
 	private OrderItemDao itemDao;
 
-	public List<Order> findByWaiter(Restaurant r, Waiter user) {
-		return dao.findByWaiter(r, user);
+	public List<Order> findByWaiter(Waiter user) {
+		return dao.findByWaiter(user);
 	}
 
 	public List<Order> findByRestaurant(Restaurant restaurant) {
@@ -133,7 +133,7 @@ public class OrderService {
 
 	// 改变菜的状态为已上
 	public OrderItem giveItemToClient(OrderItem item) {
-		item.setStatus(1);
+		item.setStatus(2);
 		itemDao.saveOrUpdate(item);
 		return item;
 	}

@@ -17,6 +17,7 @@ import com.chihuo.bussiness.Category;
 import com.chihuo.bussiness.Recipe;
 import com.chihuo.bussiness.Restaurant;
 import com.chihuo.dao.RecipeDao;
+import com.chihuo.util.PinyinUtil;
 import com.chihuo.util.PublicHelper;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 
@@ -43,6 +44,7 @@ public class RecipeService {
 			Category category, Restaurant restaurant, Recipe recipe) {
 
 		recipe.setName(name);
+		recipe.setPinyin(PinyinUtil.converterToFirstSpell(name));
 		recipe.setPrice(price);
 		recipe.setDescription(description);
 		recipe.setRestaurant(restaurant);

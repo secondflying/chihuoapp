@@ -8,9 +8,9 @@ import javax.ws.rs.core.UriInfo;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.chihuo.bussiness.Owner;
 import com.chihuo.bussiness.User;
 import com.chihuo.bussiness.Waiter;
-import com.chihuo.util.CodeUserType;
 
 public class Authorizer implements SecurityContext {
 
@@ -19,6 +19,7 @@ public class Authorizer implements SecurityContext {
 	private UriInfo uriInfo;
 	private User user;
 	private Waiter waiter;
+	private Owner owner;
 
 	public Authorizer(final User user, UriInfo uriInfo) {
 		this.user = user;
@@ -45,6 +46,19 @@ public class Authorizer implements SecurityContext {
 			};
 		}
 	}
+	
+	public Authorizer(final Owner owner, UriInfo uriInfo) {
+		this.owner = owner;
+		this.uriInfo = uriInfo;
+
+		if (owner != null) {
+			principal = new Principal() {
+				public String getName() {
+					return "OWNER:" + owner.getId();
+				}
+			};
+		}
+	}
 
 	public Principal getUserPrincipal() {
 		return principal;
@@ -58,15 +72,13 @@ public class Authorizer implements SecurityContext {
 		String[] roles = StringUtils.split(role, ",");
 		List<String> list = java.util.Arrays.asList(roles);
 
-		if (user != null) {
-			if (user.getUtype() == CodeUserType.USER && list.contains("USER")) {
-				return true;
-			} else if (user.getUtype() == CodeUserType.OWER && list.contains("OWER")) {
-				return true;
-			}
+		if (user != null && list.contains("USER")) {
+			return true;
 		}
-
 		if (waiter != null && list.contains("WAITER")) {
+			return true;
+		}
+		if (owner != null && list.contains("OWNER")) {
 			return true;
 		}
 		return false;

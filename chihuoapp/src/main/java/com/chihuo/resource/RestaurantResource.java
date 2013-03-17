@@ -19,8 +19,10 @@ import javax.ws.rs.core.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.chihuo.bussiness.Owner;
 import com.chihuo.bussiness.Restaurant;
 import com.chihuo.bussiness.User;
+import com.chihuo.service.OwnerService;
 import com.chihuo.service.RestaurantService;
 import com.chihuo.service.UserService;
 import com.sun.jersey.api.core.ResourceContext;
@@ -39,6 +41,9 @@ public class RestaurantResource {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	OwnerService ownerService;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -47,7 +52,7 @@ public class RestaurantResource {
 	}
 
 	@POST
-	@RolesAllowed({ "OWER" })
+	@RolesAllowed({ "OWNER" })
 	@Consumes("multipart/form-data")
 	public Response update(@FormDataParam("name") String name,
 			@FormDataParam("telephone") String telephone,
@@ -58,15 +63,14 @@ public class RestaurantResource {
 			@FormDataParam("image") FormDataContentDisposition fileDetail,
 			@Context SecurityContext securityContext) {
 
-		User user = userService.getLoginUser(securityContext);
-		
-		service.update(name, telephone, address, x, y, upImg, fileDetail, user, restaurant);
+		Owner owner = ownerService.getLoginOwner(securityContext);
+		service.update(name, telephone, address, x, y, upImg, fileDetail, owner, restaurant);
 
 		return Response.status(Response.Status.OK).build();
 	}
 
 	@DELETE
-	@RolesAllowed({ "OWER" })
+	@RolesAllowed({ "OWNER" })
 	public void delete() {
 		service.delete(restaurant);
 	}

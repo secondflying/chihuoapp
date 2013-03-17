@@ -43,7 +43,7 @@ public class CategoriesResource {
 	}
 
 	@POST
-	@RolesAllowed({"OWER"})
+	@RolesAllowed({"OWNER"})
 	@Consumes("multipart/form-data")
 	public Response create(@FormDataParam("name") String name,
 			@FormDataParam("description") String description,

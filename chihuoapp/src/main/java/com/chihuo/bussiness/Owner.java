@@ -1,7 +1,5 @@
 package com.chihuo.bussiness;
 
-import java.util.Set;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -15,7 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class User implements java.io.Serializable {
+public class Owner implements java.io.Serializable {
 
 	@XmlElement
 	private Integer id;
@@ -27,10 +25,10 @@ public class User implements java.io.Serializable {
 	@XmlTransient
 	private Integer status;
 
-	public User() {
+	public Owner() {
 	}
 
-	public User(String name, String password, Integer status) {
+	public Owner(String name, String password, Integer status) {
 		this.name = name;
 		this.password = password;
 		this.status = status;
