@@ -15,6 +15,14 @@
         <property name="password" type="string">
             <column name="password" length="45" />
         </property>
+        
+        <property name="thumbnail" type="string">
+            <column name="thumbnail" length="256" />
+        </property>
+        <property name="fromsns" type="java.lang.Integer">
+            <column name="fromsns" />
+        </property>
+        
         <property name="status" type="java.lang.Integer">
             <column name="status" />
         </property>

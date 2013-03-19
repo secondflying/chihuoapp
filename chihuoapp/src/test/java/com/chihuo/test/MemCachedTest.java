@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.spy.memcached.AddrUtil;
@@ -55,7 +56,7 @@ public class MemCachedTest {
 
 	}
 	
-	@Test
+//	@Test
 	public void memcahcedInLocal() throws ClientProtocolException, IOException {
 		MemcachedClient cache = new MemcachedClient(AddrUtil.getAddresses("127.0.0.1:11211"));
 
@@ -68,4 +69,20 @@ public class MemCachedTest {
 		System.out.println("Get Object after set :" + cache.get(key));
 
 	}
+	
+	@Test
+	public void testdate() throws ClientProtocolException, IOException {
+
+		long timeStamp = 120758;
+//		long timeStamp = 1280512800;
+
+//		setExpiresIn(System.currentTimeMillis() + Long.parseLong(expiresIn) * 1000);
+
+		Date now = new Date();
+		Date time=new java.util.Date(now.getTime() + (long)timeStamp*1000);
+
+		System.out.println("Get Object after set :" + time);
+	}
+	
+	
 }

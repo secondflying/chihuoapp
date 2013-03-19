@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-11-27 16:53:06 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.chihuo.bussiness.UserSNS" table="user_sns" lazy="false">
+        <cache usage="read-write" />
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="openid" type="string">
+            <column name="openid" length="45" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="45" />
+        </property>
+        <property name="thumbnail" type="string">
+            <column name="thumbnail" length="256" />
+        </property>
+        <property name="accessToken" type="string">
+            <column name="access_token" length="128" />
+        </property>
+        <property name="refreshToken" type="string">
+            <column name="refresh_token" length="128" />
+        </property>
+        <property name="expiresTime" type="timestamp">
+            <column name="expires_in" />
+        </property>
+        <many-to-one column="uid" name="user" class="com.chihuo.bussiness.User">
+        </many-to-one>
+        
+        <property name="snstype" type="java.lang.Integer">
+            <column name="snstype" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

@@ -78,7 +78,7 @@ public class MyOwnerResource {
 		
 		String encry = PublicHelper.encryptUser(u.getId(), u.getPassword(),CodeUserType.OWNER);
 		return Response.ok(u)
-	               .cookie(new NewCookie(new javax.ws.rs.core.Cookie("Authorization", encry),"用户名",NewCookie.DEFAULT_MAX_AGE,false))
+	               .cookie(new NewCookie(new javax.ws.rs.core.Cookie("Authorization", encry,"/",null),"用户名",NewCookie.DEFAULT_MAX_AGE,false))
 	               .header("Authorization", encry)
 	               .build();
 	}

@@ -14,7 +14,7 @@ public class LogoutResource {
 	@Produces( MediaType.APPLICATION_JSON)
 	public Response logout() {
 		return Response.ok().
-				cookie(new NewCookie(new javax.ws.rs.core.Cookie("Authorization", null),"用户名",0,false))
+				cookie(new NewCookie(new javax.ws.rs.core.Cookie("Authorization", null,"/",null),"用户名",0,false))
 				.build();
 	}
 }

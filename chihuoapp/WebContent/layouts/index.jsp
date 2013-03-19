@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta property="wb:webmaster" content="a8a9d252dc035657" />
 <title><tiles:getAsString name="title" /></title>
 <tiles:insertAttribute name="cssFile"></tiles:insertAttribute>
 <style type="text/css">

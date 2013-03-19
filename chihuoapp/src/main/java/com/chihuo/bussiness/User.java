@@ -1,7 +1,5 @@
 package com.chihuo.bussiness;
 
-import java.util.Set;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,6 +19,12 @@ public class User implements java.io.Serializable {
 	private Integer id;
 	@XmlElement
 	private String name;
+	
+	@XmlElement
+	private String thumbnail;
+	
+	@XmlElement
+	private Integer fromsns;
 	
 	@XmlTransient
 	private String password;
@@ -66,6 +70,22 @@ public class User implements java.io.Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	public Integer getFromsns() {
+		return fromsns;
+	}
+
+	public void setFromsns(Integer fromsns) {
+		this.fromsns = fromsns;
 	}
 
 }
