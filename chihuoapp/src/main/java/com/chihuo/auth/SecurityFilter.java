@@ -10,8 +10,10 @@ import org.springframework.stereotype.Component;
 
 import com.chihuo.bussiness.Owner;
 import com.chihuo.bussiness.User;
+import com.chihuo.bussiness.UserSNS;
 import com.chihuo.bussiness.Waiter;
 import com.chihuo.service.OwnerService;
+import com.chihuo.service.UserSNSService;
 import com.chihuo.service.UserService;
 import com.chihuo.service.WaiterService;
 import com.chihuo.util.CodeUserType;
@@ -27,6 +29,9 @@ public class SecurityFilter implements ContainerRequestFilter {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired 
+	private UserSNSService snsService;
 	
 	@Autowired
 	private OwnerService ownerService;
@@ -59,11 +64,22 @@ public class SecurityFilter implements ContainerRequestFilter {
 
 				if (utype == CodeUserType.USER) {
 					User user = userService.findById(uid);
-
-					if (user != null &&token.equals(PublicHelper.encryptPassword(user.getId(),
-							user.getPassword()))) {
-						request.setSecurityContext(new Authorizer(user, uriInfo));
+					if (user != null) {
+						if(user.getFromsns() > 0){
+							UserSNS sns = snsService.findByUidSnsType(user.getId(), user.getFromsns());
+							String encry = PublicHelper.encryptPassword(sns.getUser().getId(), sns.getOpenid() + sns.getUser().getFromsns());
+							if (token.equals(encry)) {
+								request.setSecurityContext(new Authorizer(user, uriInfo));
+							}
+						}else {
+							String encry = PublicHelper.encryptPassword(user.getId(),
+									user.getPassword());
+							if (token.equals(encry)) {
+								request.setSecurityContext(new Authorizer(user, uriInfo));
+							}
+						}
 					}
+					
 				} else if (utype == CodeUserType.WAITER) {
 					Waiter waiter = waiterService.findById(uid);
 

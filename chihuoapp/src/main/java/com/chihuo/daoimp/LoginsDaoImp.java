@@ -16,7 +16,8 @@ import com.chihuo.dao.LoginsDao;
 import com.chihuo.util.CodeUserType;
 
 @Repository
-public class LoginsDaoImp extends GenericDAOImp﻿<Logins, Integer> implements LoginsDao{
+public class LoginsDaoImp extends GenericDAOImp﻿<Logins, Integer> implements
+		LoginsDao {
 	public Logins findByUserID(int userid, int usertype, Device device,
 			Order order) {
 		Criteria crit = getSession().createCriteria(Logins.class)
@@ -25,7 +26,7 @@ public class LoginsDaoImp extends GenericDAOImp﻿<Logins, Integer> implements L
 				.add(Restrictions.eq("order.id", order.getId()));
 		if (device == null) {
 			crit = crit.add(Restrictions.isNull("device"));
-		}else {
+		} else {
 			crit = crit.add(Restrictions.eq("device.id", device.getId()));
 		}
 		crit.setCacheable(true);
@@ -54,9 +55,9 @@ public class LoginsDaoImp extends GenericDAOImp﻿<Logins, Integer> implements L
 				.add(Restrictions.eq("utype", CodeUserType.ANONYMOUS))
 				.add(Restrictions.eq("order.id", order.getId()));
 		crit.setCacheable(true);
-		List<Logins> logins =  crit.list();
+		List<Logins> logins = crit.list();
 		List<Device> devices = new ArrayList<Device>();
-		
+
 		for (Logins login : logins) {
 			devices.add(login.getDevice());
 		}
@@ -69,10 +70,11 @@ public class LoginsDaoImp extends GenericDAOImp﻿<Logins, Integer> implements L
 		Criteria crit = getSession().createCriteria(Logins.class)
 				.add(Restrictions.eq("status", 0))
 				.add(Restrictions.eq("device.id", device.getId()))
+				.add(Restrictions.eq("utype", CodeUserType.ANONYMOUS))
 				.addOrder(org.hibernate.criterion.Order.desc("order.id"));
 		crit.setCacheable(true);
-		List<Logins> logins =  crit.list();
-		
+		List<Logins> logins = crit.list();
+
 		List<History> historys = new ArrayList<History>();
 		for (Logins login : logins) {
 			History history = new History();
@@ -95,10 +97,10 @@ public class LoginsDaoImp extends GenericDAOImp﻿<Logins, Integer> implements L
 				.add(Restrictions.eq("status", 0))
 				.add(Restrictions.eq("uid", user.getId()))
 				.add(Restrictions.eq("utype", CodeUserType.USER))
-				.addOrder(org.hibernate.criterion.Order.desc("order.starttime"));
+				.addOrder(org.hibernate.criterion.Order.desc("order.id"));
 		crit.setCacheable(true);
-		List<Logins> logins =  crit.list();
-		
+		List<Logins> logins = crit.list();
+
 		List<History> historys = new ArrayList<History>();
 		for (Logins login : logins) {
 			History history = new History();

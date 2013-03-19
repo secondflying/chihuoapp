@@ -28,6 +28,10 @@ public class UserSNSService {
 	public UserSNS findByOpenID(String openid, Integer snstype){
 		return snsDao.findByOpenID(openid, snstype);
 	}
+	
+	public UserSNS findByUidSnsType(Integer uid, Integer snstype){
+		return snsDao.findByUidSnsType(uid, snstype);
+	}
 
 	
 	public UserSNS create(String openid, String name,String thumbnail, String accessToken, String refreshToken, long expirein, Integer snstype) {
