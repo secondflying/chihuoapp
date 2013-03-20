@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta property="wb:webmaster" content="a8a9d252dc035657" />
+<meta property="qc:admins" content="2641272317301356316110063757" />
 <title><tiles:getAsString name="title" /></title>
 <tiles:insertAttribute name="cssFile"></tiles:insertAttribute>
 <style type="text/css">

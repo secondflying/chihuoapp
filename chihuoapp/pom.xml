@@ -292,12 +292,13 @@
 			<version>2.8.4</version>
 		</dependency>
 		
-		<!-- <dependency>
-		    <groupId>com.googlecode</groupId>
-		    <artifactId>hibernate-memcached</artifactId>
-		    <version>1.2.2</version>
-		</dependency> -->
-
+		 
+		 <dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20090211</version>
+		</dependency>
+		
 
 		<!-- 用户测试的包 -->
 		<dependency>
