@@ -119,5 +119,31 @@ public class SNSConfig {
 	public static String getDoubanAuthorizeURI() {
 		return props.getProperty("douban.authorizeURL").trim();
 	}
+	
+	
+	// --------------------------------------------------------------------
+		public static String getRenrenClientID() {
+			return props.getProperty("renren.client_ID").trim();
+		}
+
+		public static String getRenrenClientSercert() {
+			return props.getProperty("renren.client_SERCRET").trim();
+		}
+
+		public static String getRenrenRedirectURI() {
+			return props.getProperty("renren.redirect_URI").trim();
+		}
+
+		public static String getRenrenBaseURI() {
+			return props.getProperty("renren.baseURL").trim();
+		}
+
+		public static String getRenrenAccesstokenURI() {
+			return props.getProperty("renren.accessTokenURL").trim();
+		}
+
+		public static String getRenrenAuthorizeURI() {
+			return props.getProperty("renren.authorizeURL").trim();
+		}
 
 }

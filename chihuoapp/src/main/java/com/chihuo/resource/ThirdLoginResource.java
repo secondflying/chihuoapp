@@ -24,6 +24,7 @@ import com.chihuo.sns.AccessToken;
 import com.chihuo.sns.SNSException;
 import com.chihuo.sns.SdkDouban;
 import com.chihuo.sns.SdkQzone;
+import com.chihuo.sns.SdkRenren;
 import com.chihuo.sns.SdkTqq;
 import com.chihuo.sns.SdkWeibo;
 import com.chihuo.sns.UserInfo;
@@ -139,6 +140,31 @@ public class ThirdLoginResource {
 			return errorResponse("授权错误：用户取消授权");
 		}
 
+		return errorResponse("地址错误");
+	}
+
+	@GET
+	@Path("/renren")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response renrenRedirect(@Context HttpServletRequest request,
+			@Context UriInfo uriInfo) {
+		if (!StringUtils.isEmpty(request.getParameter("code"))) {
+			String code = request.getParameter("code");
+			try {
+				SdkRenren sdk = new SdkRenren();
+				AccessToken at = sdk.getAccessTokenByCode(code);
+
+				UserInfo user = sdk.showUserById(at.getUid(),
+						at.getAccessToken());
+				return successResponse(at, user, CodeSNSType.RENREN, uriInfo);
+			} catch (SNSException e) {
+				return errorResponse("renren错误了：" + e.getMessage());
+			}
+
+		} else if (!StringUtils.isEmpty(request.getParameter("error"))) {
+			return errorResponse("授权错误：用户取消授权"
+					+ request.getParameter("error_description"));
+		}
 		return errorResponse("地址错误");
 	}
 
