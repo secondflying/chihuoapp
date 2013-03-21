@@ -151,7 +151,7 @@ private OrderService orderService;
 	}
 
 	// 改变菜的状态，如已上，
-	@Path("{iid}")
+	@Path("{iid}/check")
 	@PUT
 	@RolesAllowed({ "OWNER,WAITER" })
 	@Produces(MediaType.APPLICATION_JSON)
@@ -173,6 +173,25 @@ private OrderService orderService;
 			notificationService.sendNotifcationToUser(oi.getOrder().getId()
 					.toString(), CodeNotificationType.AlterMenu, device);
 		}
+
+		return Response.status(Response.Status.OK).entity(oi)
+				.type(MediaType.APPLICATION_JSON).build();
+	}
+	
+	@Path("{iid}/uncheck")
+	@PUT
+	@RolesAllowed({ "OWNER,WAITER" })
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response alterOrderItemStatus2(@PathParam("iid") int iid) {
+
+		OrderItem oi = orderService.findByIdInOrder(order.getId(), iid);
+		if (oi == null || oi.getStatus() == -1) {
+			return Response.status(Response.Status.NOT_FOUND)
+					.entity("ID为" + iid + "的已点菜不存在").type(MediaType.TEXT_PLAIN)
+					.build();
+		}
+
+		oi = orderService.cancelItemToClient(oi);
 
 		return Response.status(Response.Status.OK).entity(oi)
 				.type(MediaType.APPLICATION_JSON).build();

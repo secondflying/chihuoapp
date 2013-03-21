@@ -33,5 +33,6 @@
         <mapping resource="com/chihuo/bussiness/Owner.hbm.xml" />
         <mapping resource="com/chihuo/bussiness/Device.hbm.xml" />
         <mapping resource="com/chihuo/bussiness/Logins.hbm.xml" />
+        <mapping resource="com/chihuo/bussiness/Favorite.hbm.xml" />
     </session-factory>
 </hibernate-configuration>

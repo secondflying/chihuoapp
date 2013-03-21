@@ -18,9 +18,9 @@
 	src="assets/img/qq/login_with_douban_32.png" /></a>
 <br />
 <a
-	href="https://graph.renren.com/oauth/authorize?client_id=fdd705c8e4ab47a2b9e979f0e3dcfe69&response_type=code&redirect_uri=http://taochike.sinaapp.com/rest/1/taochike/thirdlogin/renren"><img
+	href="https://graph.renren.com/oauth/authorize?client_id=fdd705c8e4ab47a2b9e979f0e3dcfe69&response_type=code&redirect_uri=http://taochike.sinaapp.com/rest/1/taochike/thirdlogin/renren&display=mobile"><img
 	src="assets/img/qq/234_48dark.png" /></a>
-	<a
-	href="https://graph.renren.com/oauth/authorize?client_id=fdd705c8e4ab47a2b9e979f0e3dcfe69&response_type=code&redirect_uri=http://192.168.1.102:8080/chihuoapp/rest/thirdlogin/renren"><img
+<a
+	href="https://graph.renren.com/oauth/authorize?client_id=fdd705c8e4ab47a2b9e979f0e3dcfe69&response_type=code&redirect_uri=http://192.168.1.102:8080/chihuoapp/rest/thirdlogin/renren&display=mobile"><img
 	src="assets/img/qq/234_48dark.png" /></a>
 <br />

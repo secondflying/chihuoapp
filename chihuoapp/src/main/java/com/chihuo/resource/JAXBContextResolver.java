@@ -12,6 +12,7 @@ import com.chihuo.bussiness.Category;
 import com.chihuo.bussiness.Desk;
 import com.chihuo.bussiness.DeskStatusView;
 import com.chihuo.bussiness.DeskType;
+import com.chihuo.bussiness.Favorite;
 import com.chihuo.bussiness.History;
 import com.chihuo.bussiness.Order;
 import com.chihuo.bussiness.OrderClientItem;
@@ -34,8 +35,9 @@ public class JAXBContextResolver implements ContextResolver<JAXBContext> {
 
 	@SuppressWarnings("rawtypes")
 	private Class[] ctypes = { Restaurant.class, Category.class, Recipe.class,
-			Desk.class, DeskType.class, Order.class, OrderItem.class,OrderClientItem.class,
-			DeskStatusView.class, User.class, Waiter.class, Owner.class,History.class };
+			Desk.class, DeskType.class, Order.class, OrderItem.class,
+			OrderClientItem.class, DeskStatusView.class, User.class,
+			Waiter.class, Owner.class, History.class, Favorite.class };
 
 	@SuppressWarnings("rawtypes")
 	public JAXBContextResolver() throws Exception {

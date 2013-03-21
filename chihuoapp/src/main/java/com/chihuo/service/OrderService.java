@@ -121,7 +121,6 @@ public class OrderService {
 				item = new OrderItem();
 			}
 			
-			
 			item.setOrder(order);
 			item.setRecipe(recipe);
 			item.setCount(totalCount);
@@ -133,6 +132,12 @@ public class OrderService {
 	// 改变菜的状态为已上
 	public OrderItem giveItemToClient(OrderItem item) {
 		item.setStatus(2);
+		itemDao.saveOrUpdate(item);
+		return item;
+	}
+	
+	public OrderItem cancelItemToClient(OrderItem item) {
+		item.setStatus(1);
 		itemDao.saveOrUpdate(item);
 		return item;
 	}

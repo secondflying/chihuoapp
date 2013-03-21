@@ -19,8 +19,11 @@ import javax.ws.rs.core.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.chihuo.bussiness.Favorite;
 import com.chihuo.bussiness.Owner;
 import com.chihuo.bussiness.Restaurant;
+import com.chihuo.bussiness.User;
+import com.chihuo.service.FavoriteService;
 import com.chihuo.service.OwnerService;
 import com.chihuo.service.RestaurantService;
 import com.chihuo.service.UserService;
@@ -43,6 +46,9 @@ public class RestaurantResource {
 	
 	@Autowired
 	OwnerService ownerService;
+	
+	@Autowired 
+	FavoriteService favoriteService;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -86,6 +92,16 @@ public class RestaurantResource {
 	@Path("/noverify")
 	public void notverify() {
 		service.notverify( restaurant);
+	}
+	
+	@POST
+	@RolesAllowed({ "USER" })
+	@Path("/favorite")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Favorite favorite(@Context SecurityContext securityContext) {
+		User user = userService.getLoginUser(securityContext);
+		Favorite favorite = favoriteService.addToFavorite(user, restaurant);
+		return favorite;
 	}
 
 	@Path("/categories")
