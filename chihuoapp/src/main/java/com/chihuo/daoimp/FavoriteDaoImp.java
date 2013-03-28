@@ -42,5 +42,17 @@ public class FavoriteDaoImp extends GenericDAOImp﻿<Favorite, Integer> implemen
 		return favorite;
 	}
 
+	@Override
+	public void cancelFavorite(User user, Integer rid) {
+		Criteria crit = getSession().createCriteria(Favorite.class).
+				add(Restrictions.eq("user.id", user.getId())).
+				add(Restrictions.eq("restaurant.id", rid));
+		
+		Favorite favorite = (Favorite)crit.uniqueResult();
+		if (favorite != null) {
+			getSession().delete(favorite);
+		}
+	}
+
 
 }

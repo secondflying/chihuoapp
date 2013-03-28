@@ -44,17 +44,19 @@ public class RestaurantsResource {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Restaurant> get() {
-		return service.getVerified();
+	public List<Restaurant> get(
+			@DefaultValue("-1") @QueryParam("city") int city,
+			@QueryParam("name") String name) {
+		return service.getVerified(city, name);
 	}
 
 	@Path("/around")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Restaurant> getAround(@QueryParam("x") double x,
-			@QueryParam("y") double y, @QueryParam("distance") double distance) {
-
-		return service.findAround(x, y, distance);
+			@QueryParam("y") double y, @QueryParam("distance") double distance,
+			@DefaultValue("-1") @QueryParam("city") int city) {
+		return service.findAround(x, y, distance, city);
 	}
 
 	@POST
@@ -90,8 +92,9 @@ public class RestaurantsResource {
 	@RolesAllowed({ "ADMIN" })
 	@Path("/all")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Restaurant> getAll() {
-		return service.findNotDeleted();
+	public List<Restaurant> getAll(
+			@DefaultValue("-1") @QueryParam("city") int city) {
+		return service.findNotDeleted(city,null);
 	}
 
 	@GET
@@ -106,8 +109,9 @@ public class RestaurantsResource {
 	@RolesAllowed({ "ADMIN" })
 	@Path("/verified")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Restaurant> getVerified() {
-		return service.getVerified();
+	public List<Restaurant> getVerified(
+			@DefaultValue("-1") @QueryParam("city") int city) {
+		return service.getVerified(city,null);
 	}
 
 	@GET

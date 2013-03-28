@@ -35,5 +35,7 @@
         </property>
         <many-to-one column="uid" name="owner" class="com.chihuo.bussiness.Owner">
         </many-to-one>
+        <many-to-one column="city" name="city" class="com.chihuo.bussiness.City">
+        </many-to-one>
     </class>
 </hibernate-mapping>

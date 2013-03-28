@@ -12,6 +12,7 @@
 
 	<context:annotation-config />
 	<context:component-scan base-package="com.chihuo" />
+	<tx:annotation-driven />
 
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:jdbc.properties" />
@@ -45,14 +46,9 @@
 		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
 		<property name="packagesToScan" value="com.chihuo.bussiness" />
 	</bean>
-
-	<tx:annotation-driven />
-	
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
-	<!-- 将hibernamte exception转为spring的通用exception -->
 	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
 </beans>

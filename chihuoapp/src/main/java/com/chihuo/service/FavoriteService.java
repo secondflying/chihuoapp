@@ -24,6 +24,10 @@ public class FavoriteService {
 	public Favorite addToFavorite(User user, Restaurant restaurant) {
 		return dao.addToFavorite(user, restaurant);
 	}
+	
+	public void cancelFavorite(User user, Integer rid) {
+		 dao.cancelFavorite(user, rid);
+	}
 
 	public void delete(int id) {
 		Favorite favorite = dao.findById(id);

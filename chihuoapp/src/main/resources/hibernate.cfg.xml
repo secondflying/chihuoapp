@@ -15,6 +15,7 @@
         <property name="hibernate.cache.use_second_level_cache">true</property>
 		<property name="hibernate.cache.use_query_cache">true</property>
 		
+		<!-- 二级缓存使用的存储,ehcache或memcached -->
 		<property name="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</property>
  		<!-- <property name="hibernate.cache.provider_class">com.googlecode.hibernate.memcached.MemcachedCacheProvider</property>
 		<property name="hibernate.memcached.servers">localhost:11211</property> -->
@@ -34,5 +35,6 @@
         <mapping resource="com/chihuo/bussiness/Device.hbm.xml" />
         <mapping resource="com/chihuo/bussiness/Logins.hbm.xml" />
         <mapping resource="com/chihuo/bussiness/Favorite.hbm.xml" />
+        <mapping resource="com/chihuo/bussiness/City.hbm.xml" />
     </session-factory>
 </hibernate-configuration>

@@ -36,14 +36,14 @@ public class RestaurantService {
 		if (c == null || c.getStatus() == -1) {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 		}
-
 		return c;
 	}
 
-	public List<Restaurant> getVerified() {
+	public List<Restaurant> getVerified(int city,String name) {
 		//return dao.findByStatus(1);
-		return dao.findNotDeleted();
+		return dao.findNotDeleted(city,name);
 	}
+	
 
 	public List<Restaurant> getToVerify() {
 		return dao.findByStatus(0);
@@ -53,15 +53,15 @@ public class RestaurantService {
 		return dao.findByStatus(2);
 	}
 
-	public List<Restaurant> findNotDeleted() {
-		return dao.findNotDeleted();
+	public List<Restaurant> findNotDeleted(int city,String name) {
+		return dao.findNotDeleted(city,name);
 	}
 
 	public List<Restaurant> findByUser(Owner u) {
 		return dao.findByUser(u);
 	}
 
-	public List<Restaurant> findAround(double x, double y, double distance) {
+	public List<Restaurant> findAround(double x, double y, double distance,int city) {
 		double KmPerDegree = 111.12000071117;
 
 		double dis = distance / 1000 / KmPerDegree;
@@ -69,7 +69,7 @@ public class RestaurantService {
 		double xmax = x + dis;
 		double ymin = y - dis;
 		double ymax = y + dis;
-		return dao.findByExtent(xmin, xmax, ymin, ymax);
+		return dao.findByExtent(xmin, xmax, ymin, ymax,city);
 	}
 
 	public Restaurant create(String name, String telephone, String address,

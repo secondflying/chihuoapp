@@ -9,6 +9,7 @@ import javax.ws.rs.ext.Provider;
 import javax.xml.bind.JAXBContext;
 
 import com.chihuo.bussiness.Category;
+import com.chihuo.bussiness.City;
 import com.chihuo.bussiness.Desk;
 import com.chihuo.bussiness.DeskStatusView;
 import com.chihuo.bussiness.DeskType;
@@ -37,7 +38,7 @@ public class JAXBContextResolver implements ContextResolver<JAXBContext> {
 	private Class[] ctypes = { Restaurant.class, Category.class, Recipe.class,
 			Desk.class, DeskType.class, Order.class, OrderItem.class,
 			OrderClientItem.class, DeskStatusView.class, User.class,
-			Waiter.class, Owner.class, History.class, Favorite.class };
+			Waiter.class, Owner.class, History.class, Favorite.class, City.class };
 
 	@SuppressWarnings("rawtypes")
 	public JAXBContextResolver() throws Exception {

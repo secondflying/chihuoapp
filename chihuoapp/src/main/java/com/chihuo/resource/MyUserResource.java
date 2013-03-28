@@ -86,7 +86,7 @@ public class MyUserResource {
 					.status(Response.Status.BAD_REQUEST).entity("用户不存在")
 					.type(MediaType.TEXT_PLAIN).build());
 		}
-		favoriteService.delete(fid);
+		favoriteService.cancelFavorite(owner, fid);
 	}
 
 	@GET

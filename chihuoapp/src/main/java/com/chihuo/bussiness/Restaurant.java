@@ -40,6 +40,9 @@ public class Restaurant implements java.io.Serializable {
 	@XmlElement
 	private Owner owner;
 	
+	@XmlTransient
+	private City city;
+	
 	public Restaurant() {
 	}
 
@@ -132,6 +135,14 @@ public class Restaurant implements java.io.Serializable {
 
 	public void setPinyin(String pinyin) {
 		this.pinyin = pinyin;
+	}
+
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
 	}
 
 }

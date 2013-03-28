@@ -10,5 +10,9 @@ import com.chihuo.bussiness.User;
 public interface FavoriteDao extends GenericDao<Favorite, Integer> {
 
 	public List<Favorite> findByUser(int uid);
+
 	Favorite addToFavorite(User user, Restaurant restaurant);
+
+	public void cancelFavorite(User user, Integer rid);
+
 }

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,7 @@ import org.junit.Test;
 
 import com.chihuo.sns.AccessToken;
 import com.sina.sae.memcached.SaeMemcache;
+import com.sun.tools.javac.resources.javac;
 
 public class MemCachedTest {
 
@@ -83,24 +85,15 @@ public class MemCachedTest {
 
 		// setExpiresIn(System.currentTimeMillis() + Long.parseLong(expiresIn) *
 		// 1000);
-
-		Date now = new Date();
-		Date time = new java.util.Date(now.getTime() + (long) timeStamp * 1000);
-
-		System.out.println("Get Object after set :" + time);
-
-		AccessToken accessToken = new AccessToken();
-
-		String json = "access_token=c9372b4b76e241a004cc284eae79d7ef&expires_in=604800&refresh_token=cc2e9b250d8b7cffa6bd24c07ea7895d&openid=16dbb4541fde38f9edd5c98d2fe2ef9d&name=t22098057&nick=金乌贼";
-		Matcher m = Pattern.compile(
-				"^access_token=(\\w+)&expires_in=(\\w+)&refresh_token=(\\w+)&openid=(\\w+)")
-				.matcher(json);
-		if (m.find()) {
-			accessToken.setAccessToken(m.group(1));
-			accessToken.setExpireIn(Long.parseLong(m.group(2)));
-			accessToken.setRefreshToken(m.group(3));
-			accessToken.setUid(m.group(4));
+		
+		InetAddress[] addresses = 
+		java.net.InetAddress.getAllByName("baidu.com");
+		for (InetAddress inetAddress : addresses) {
+			System.out.println(inetAddress.getHostName());
+			System.out.println(inetAddress.getHostAddress());
+			System.out.println(inetAddress.getCanonicalHostName());
 		}
+
 	}
 
 }
