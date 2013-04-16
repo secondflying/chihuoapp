@@ -43,6 +43,9 @@ public class Restaurant implements java.io.Serializable {
 	@XmlTransient
 	private City city;
 	
+	@XmlElement
+	private Integer average;
+	
 	public Restaurant() {
 	}
 
@@ -143,6 +146,14 @@ public class Restaurant implements java.io.Serializable {
 
 	public void setCity(City city) {
 		this.city = city;
+	}
+
+	public Integer getAverage() {
+		return average;
+	}
+
+	public void setAverage(Integer average) {
+		this.average = average;
 	}
 
 }

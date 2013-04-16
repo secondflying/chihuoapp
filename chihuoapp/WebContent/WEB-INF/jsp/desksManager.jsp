@@ -6,7 +6,10 @@
 <html>
 <head>
 <title><tiles:getAsString name="title" /></title>
-<tiles:insertAttribute name="cssFile"></tiles:insertAttribute>
+<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	media="screen">
+<link href="assets/css/css.css" rel="stylesheet" media="screen">
+<style type="text/css">
 <style type="text/css">
 	body {
 		padding-top: 0px;
@@ -36,11 +39,11 @@
 		<div class="row">
 			<div class="span2">
 				<ul class="nav nav-tabs nav-stacked">
-					<li><a href="infoManager.jsp">餐厅信息</a></li>
-					<li><a href="recipeManager.jsp">菜品维护</a></li>
-					<li class="active"><a href="desksManager.jsp">餐桌维护</a></li>
-					<li><a href="ordermanager.jsp">订单管理</a></li>
-					<li><a href="waiterManager.jsp">服务员管理</a></li>
+					<li><a href="infoManager">餐厅信息</a></li>
+					<li><a href="recipeManager">菜品维护</a></li>
+					<li class="active"><a href="desksManager">餐桌维护</a></li>
+					<li><a href="orderManager">订单管理</a></li>
+					<li><a href="waiterManager">服务员管理</a></li>
 					
 				</ul>
 			</div>

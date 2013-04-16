@@ -1,7 +1,5 @@
 package com.chihuo.service;
 
-import java.io.InputStream;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +8,6 @@ import com.chihuo.bussiness.User;
 import com.chihuo.bussiness.UserSNS;
 import com.chihuo.dao.UserDao;
 import com.chihuo.dao.UserSNSDao;
-import com.sun.jersey.core.header.FormDataContentDisposition;
 
 @Service
 @Transactional

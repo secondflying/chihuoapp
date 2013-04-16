@@ -13,12 +13,12 @@
 				<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu">
-				<li><a href="infoManager.jsp">管理平台</a></li>
+				<li><a href="infoManager">管理平台</a></li>
 				<li><a href="#">个人资料</a></li>
 				<li><a href="#" id="logout-a">退出</a></li>
 			</ul>
 		</div>
-		<h2 class="muted"><a href="index.jsp">淘吃客</a></h2>
+		<h2 class="muted"><a href="index">淘吃客</a></h2>
 	</div>
 </div>
 

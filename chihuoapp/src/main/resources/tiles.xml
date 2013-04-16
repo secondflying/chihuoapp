@@ -4,32 +4,31 @@
        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
     <definition name="commonPage">
-    	<put-attribute name="cssFile" value="/tiles/cssPath.jsp" />
-    	<put-attribute name="top" value="/tiles/top.jsp" />
-    	<put-attribute name="jsFile" value="/tiles/jsPath.jsp" />
+    	<put-attribute name="top" value="/WEB-INF/jsp/top.jsp" />
+    	<put-attribute name="jsFile" value="/WEB-INF/jsp/jsPath.jsp" />
     </definition>
 
-    <definition name="index" extends="commonPage" template="/layouts/index.jsp">
+    <definition name="index" extends="commonPage" template="/WEB-INF/jsp/index.jsp">
 		<put-attribute name="title" value="淘吃客 - 首页" />
     </definition>
 
-<definition name="infoManager" extends="commonPage" template="/layouts/infoManager.jsp">
+	<definition name="infoManager" extends="commonPage" template="/WEB-INF/jsp/infoManager.jsp">
 		<put-attribute name="title" value="淘吃客 - 餐厅设置" />
     </definition>
     
-    <definition name="recipeManager" extends="commonPage" template="/layouts/recipeManager.jsp">
+    <definition name="recipeManager" extends="commonPage" template="/WEB-INF/jsp/recipeManager.jsp">
 		<put-attribute name="title" value="淘吃客 - 菜品管理" />
     </definition>
     
-    <definition name="desksManager" extends="commonPage" template="/layouts/desksManager.jsp">
+    <definition name="desksManager" extends="commonPage" template="/WEB-INF/jsp/desksManager.jsp">
 		<put-attribute name="title" value="淘吃客 - 餐桌管理" />
     </definition>
     
-    <definition name="orderManager" extends="commonPage" template="/layouts/ordermanager.jsp">
+    <definition name="orderManager" extends="commonPage" template="/WEB-INF/jsp/orderManager.jsp">
 		<put-attribute name="title" value="淘吃客 - 订单管理" />
     </definition>
     
-    <definition name="waiterManager" extends="commonPage" template="/layouts/waiterManager.jsp">
+    <definition name="waiterManager" extends="commonPage" template="/WEB-INF/jsp/waiterManager.jsp">
 		<put-attribute name="title" value="淘吃客 - 服务员管理" />
     </definition>
 </tiles-definitions>

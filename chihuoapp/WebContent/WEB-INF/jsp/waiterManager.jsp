@@ -6,7 +6,9 @@
 <html>
 <head>
 <title><tiles:getAsString name="title" /></title>
-<tiles:insertAttribute name="cssFile"></tiles:insertAttribute>
+<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	media="screen">
+<link href="assets/css/css.css" rel="stylesheet" media="screen">
 <style type="text/css">
 body {
 	padding-top: 0px;
@@ -32,11 +34,11 @@ body {
 		<div class="row">
 			<div class="span2">
 				<ul class="nav nav-tabs nav-stacked">
-					<li><a href="infoManager.jsp">餐厅信息</a></li>
-					<li><a href="recipeManager.jsp">菜品维护</a></li>
-					<li><a href="desksManager.jsp">餐桌维护</a></li>
-					<li><a href="ordermanager.jsp">订单管理</a></li>
-					<li class="active"><a href="waiterManager.jsp">服务员管理</a></li>
+					<li><a href="infoManager">餐厅信息</a></li>
+					<li><a href="recipeManager">菜品维护</a></li>
+					<li><a href="desksManager">餐桌维护</a></li>
+					<li><a href="orderManager">订单管理</a></li>
+					<li class="active"><a href="waiterManager">服务员管理</a></li>
 				</ul>
 			</div>
 			<div class="span10">
@@ -46,13 +48,13 @@ body {
 
 
 				<div class=" well" id="orderManage">
-				<h5>
-						服务员维护 <a class="btn btn-success pull-right" href="#addDesk-modal" data-toggle="modal"><i
-							class="icon-plus icon-white"></i> 新增</a>
+					<h5>
+						服务员维护 <a class="btn btn-success pull-right" href="#addDesk-modal"
+							data-toggle="modal"><i class="icon-plus icon-white"></i> 新增</a>
 					</h5>
 
 					<hr>
-					
+
 					<table id="orderList" class="table table-hover">
 						<thead>
 							<tr>
@@ -70,7 +72,8 @@ body {
 		</div>
 
 		<div class="modal hide fade" id="addDesk-modal">
-			<form class="form-horizontal" id="desk-form" enctype="application/x-www-form-urlencoded" method="post">
+			<form class="form-horizontal" id="desk-form"
+				enctype="application/x-www-form-urlencoded" method="post">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
@@ -78,23 +81,25 @@ body {
 				</div>
 				<br>
 				<fieldset>
-				    <div class="control-group">
-				      <label class="control-label" for="name">名称</label>
-				      <div class="controls">
-				        <input type="text" class="input-xlarge span4" name="name" id="rname"/>
-				      </div>
-				    </div>
-				    <div class="control-group">
-				      <label class="control-label" for="capacity">密码</label>
-				      <div class="controls">
-				        <input type="text" class="input-xlarge span4" name="password" id="password"/>
-				      </div>
-				    </div>
-				    <div class="control-group">
-				      <label class="control-label span2" for="login-btn"></label>
-				      <input id="submitBtn" type="button"  id="recipe-btn"
-						value="确  定" class="btn btn-success span3">
-				    </div>
+					<div class="control-group">
+						<label class="control-label" for="name">名称</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge span4" name="name"
+								id="rname" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="capacity">密码</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge span4" name="password"
+								id="password" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label span2" for="login-btn"></label> <input
+							id="submitBtn" type="button" id="recipe-btn" value="确  定"
+							class="btn btn-success span3">
+					</div>
 				</fieldset>
 			</form>
 		</div>
@@ -105,7 +110,7 @@ body {
 	<script>
 		$(document).ready(function() {
 			getRestaurants();
-			
+
 			$("#submitBtn").click(function() {
 				$('#desk-form').submit();
 				return false;
@@ -126,39 +131,58 @@ body {
 
 		/* 获取所有服务员 */
 		function getWaiters(rid) {
-			$.getJSON(RESTURL + "restaurants/" + rid + "/waiters",
-					function(data) {
-						console.log(data);
-						$('#orderList tbody').empty();
-						$.each(data, function(index, value) {
-							if (!isNaN(index)) {
-								var html = '<tr>'
-										+ '<td>' + value.id + '</td>'
-										+ '<td>' + value.name + '</td>'
-										+ '<td><a href="#" onclick="editObj('+ rid + ',' + value.id + ')">编辑</a><br /><a href="#" onclick="deleteObj('+ rid + ',' + value.id + ')">删除</a></td>'
-										+ '</tr>';
-								$('#orderList tbody').append(html);
-							}
-						});
-					});
+			$
+					.getJSON(
+							RESTURL + "restaurants/" + rid + "/waiters",
+							function(data) {
+								console.log(data);
+								$('#orderList tbody').empty();
+								$
+										.each(
+												data,
+												function(index, value) {
+													if (!isNaN(index)) {
+														var html = '<tr>'
+																+ '<td>'
+																+ value.id
+																+ '</td>'
+																+ '<td>'
+																+ value.name
+																+ '</td>'
+																+ '<td><a href="#" onclick="editObj('
+																+ rid
+																+ ','
+																+ value.id
+																+ ')">编辑</a><br /><a href="#" onclick="deleteObj('
+																+ rid
+																+ ','
+																+ value.id
+																+ ')">删除</a></td>'
+																+ '</tr>';
+														$('#orderList tbody')
+																.append(html);
+													}
+												});
+							});
 			bindForm(rid);
 
 		}
 
-		function bindForm(rid,id) {
-			var options = { 
-					url:id ? RESTURL + "restaurants/"+rid+"/waiters/" + id : RESTURL + "restaurants/"+rid+"/waiters",
-			        resetForm: true,
-			        success: function (responseText, statusText, xhr, $form) {
-			        	$('#addDesk-modal').modal('hide');
-			        	//刷新列表
-			        	getWaiters(rid);
-					},
-			        error: function (xhr, textStatus, errorThrown) {
-			        	$('#addDesk-modal').modal('hide');
-			        	bootbox.alert(xhr.responseText);
-					}
-			    };
+		function bindForm(rid, id) {
+			var options = {
+				url : id ? RESTURL + "restaurants/" + rid + "/waiters/" + id
+						: RESTURL + "restaurants/" + rid + "/waiters",
+				resetForm : true,
+				success : function(responseText, statusText, xhr, $form) {
+					$('#addDesk-modal').modal('hide');
+					//刷新列表
+					getWaiters(rid);
+				},
+				error : function(xhr, textStatus, errorThrown) {
+					$('#addDesk-modal').modal('hide');
+					bootbox.alert(xhr.responseText);
+				}
+			};
 			$('#desk-form').unbind('submit');
 			$('#desk-form').submit(function() {
 				$(this).ajaxSubmit(options);
@@ -166,7 +190,7 @@ body {
 			});
 			return false;
 		}
-		
+
 		/* 编辑餐桌 */
 		function editObj(rid, id) {
 			$.getJSON(RESTURL + "restaurants/" + rid + "/waiters/" + id,
@@ -174,8 +198,8 @@ body {
 						$("#rname").val(data.name ? data.name : "");
 						$("#password").val(data.password ? data.password : "");
 						$('#addDesk-modal').modal('show');
-						
-						bindForm(rid,id);
+
+						bindForm(rid, id);
 					});
 		}
 

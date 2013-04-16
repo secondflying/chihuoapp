@@ -42,6 +42,7 @@ public class SecurityFilter implements ContainerRequestFilter {
 	@Override
 	public ContainerRequest filter(ContainerRequest request) {
 
+		//TODO 以后这里只需判断http head
 		String authHead = request.getHeaderValue("Authorization");
 		Cookie authCookie = request.getCookies().get("Authorization");
 

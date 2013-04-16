@@ -148,6 +148,14 @@ public class RestaurantResource {
 	}
 	
 	
+	@Path("/assistents")
+	public AssistentResource getAssistentResource() {
+		AssistentResource resource = resourceContext.getResource(AssistentResource.class);
+		resource.setRestaurant(restaurant);
+		return resource;
+	}
+	
+	
 	public Restaurant getRestaurant() {
 		return restaurant;
 	}

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<script src="assets/js/jquery-latest.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/jquery/js/jquery-1.7.2.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/jquery/js/jquery.form.js"></script>
 <script src="assets/js/bootbox.js"></script>
 <script src="assets/js/config.js"></script>

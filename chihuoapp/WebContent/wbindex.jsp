@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<style>
+body {
+	font-size: 1.5em;
+}
+</style>
+ljljjjjkj中文
+<a href="#">sfsdf中国</a>
+<jsp:include page="test2.jsp" />
+<%@ include file="test2.jsp"%>
 <a
 	href="https://open.weibo.cn/oauth2/authorize?client_id=1399451403&response_type=code&redirect_uri=http://taochike.sinaapp.com/rest/1/taochike/thirdlogin/weibo&display=mobile"><img
 	src="assets/img/weibo/48.png" /></a>

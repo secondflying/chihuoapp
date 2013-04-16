@@ -23,7 +23,6 @@ public class Favorite implements java.io.Serializable {
 	private Integer id;
 	@XmlJavaTypeAdapter(JaxbDateSerializer.class)
 	private Date time;
-	
 	@XmlTransient
 	private User user;
 	@XmlTransient
@@ -76,6 +75,14 @@ public class Favorite implements java.io.Serializable {
 	public String getRestaurantName(){
 		if(restaurant != null){
 			return restaurant.getName();
+		}
+		return null;
+	}
+	
+	@XmlElement
+	public String getRestaurantImage(){
+		if(restaurant != null){
+			return restaurant.getImage();
 		}
 		return null;
 	}
