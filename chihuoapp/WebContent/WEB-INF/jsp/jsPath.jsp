@@ -150,7 +150,7 @@
 			cache : false,
 			success : function(data, textStatus, jqXHR) {
 				logoutCallback();
-				window.location.href = "index.jsp";
+				window.location.href = "index";
 			},
 			error : function(xhr, textStatus, errorThrown) {
 				bootbox.alert(xhr.responseText);

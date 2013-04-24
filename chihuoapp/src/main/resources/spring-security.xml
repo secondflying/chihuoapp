@@ -15,7 +15,7 @@
         <intercept-url pattern="/secure/**" access="isAuthenticated()" />
         <intercept-url pattern="/listAccounts.html" access="isAuthenticated()" />
         <intercept-url pattern="/post.html" access="isAuthenticated()" />
-        <intercept-url pattern="/**" access="denyAll" />
+        <intercept-url pattern="/**" access="permitAll" />
         <form-login />
         <logout />
     </http>

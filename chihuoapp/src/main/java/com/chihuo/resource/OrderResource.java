@@ -47,7 +47,7 @@ public class OrderResource {
 	Order order;
 
 	@Autowired
-private OrderService orderService;
+	private OrderService orderService;
 
 	@Autowired
 	private RecipeService recipeService;
@@ -177,13 +177,12 @@ private OrderService orderService;
 		return Response.status(Response.Status.OK).entity(oi)
 				.type(MediaType.APPLICATION_JSON).build();
 	}
-	
+
 	@Path("{iid}/uncheck")
 	@PUT
 	@RolesAllowed({ "OWNER,WAITER" })
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response alterOrderItemStatus2(@PathParam("iid") int iid) {
-
 		OrderItem oi = orderService.findByIdInOrder(order.getId(), iid);
 		if (oi == null || oi.getStatus() == -1) {
 			return Response.status(Response.Status.NOT_FOUND)
@@ -202,10 +201,13 @@ private OrderService orderService;
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response AssistentHelp(@FormParam("type") String msg,
+	public Response assistentHelp(@FormParam("type") String msg,
 			@Context UriInfo uriInfo, @Context HttpServletRequest request,
 			@Context SecurityContext securityContext) {
-
+		if (order.getStatus() != 1 && order.getStatus() != 3) {
+			return Response.status(Response.Status.BAD_REQUEST).entity("无法呼叫服务")
+					.type(MediaType.TEXT_PLAIN).build();
+		}
 		Device waiterDevice = deviceService.getWaiterDeviceByOrder(order);
 
 		notificationService.sendNotificationToWaiter(msg, order.getDesk()
@@ -213,6 +215,7 @@ private OrderService orderService;
 
 		return Response.status(Response.Status.OK)
 				.type(MediaType.APPLICATION_JSON).build();
+		
 	}
 
 	// 下单
@@ -221,6 +224,10 @@ private OrderService orderService;
 	// @RolesAllowed({ "USER,OWNER,WAITER" })
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deposit() {
+		if (order.getStatus() != 1) {
+			return Response.status(Response.Status.BAD_REQUEST).entity("无法下单")
+					.type(MediaType.TEXT_PLAIN).build();
+		}
 		order = orderService.deposit(order);
 
 		return Response.status(Response.Status.OK).entity(order)
@@ -233,6 +240,10 @@ private OrderService orderService;
 	// @RolesAllowed({ "USER,OWNER,WAITER" })
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response tocheck() {
+		if (order.getStatus() != 1) {
+			return Response.status(Response.Status.BAD_REQUEST).entity("无法结账")
+					.type(MediaType.TEXT_PLAIN).build();
+		}
 		order = orderService.toCheckOrder(order);
 
 		Device waiterDevice = deviceService.getWaiterDeviceByOrder(order);
