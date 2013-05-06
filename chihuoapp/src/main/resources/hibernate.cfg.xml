@@ -8,7 +8,7 @@
         <property name="hibernate.connection.characterEncoding">UTF-8</property>
 	    <property name="hibernate.show_sql">true</property>
 	    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.show_sql">true</property>
         <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
         
         <!-- 定义二级缓存 -->

@@ -30,8 +30,8 @@ public class NotificationService {
 					PublicConfig.getJWaiterPassword(),
 					PublicConfig.getJWaiterAppKey());
 			int sendNo = 1;
-			MessageResult msgResult = jpush.sendNotificationWithImei(sendNo,
-					device.getDeviceid(), title, message, 1, extra);
+			MessageResult msgResult = jpush.sendCustomMessageWithImei(sendNo,
+					device.getDeviceid(), title, message, "1", extra);
 			if (null != msgResult) {
 				if (msgResult.getErrcode() == ErrorCodeEnum.NOERROR.value()) {
 					System.out.println("发送成功!" + "title='" + title + "' message='" + message+ "'" + " sendNo=" + msgResult.getSendno());

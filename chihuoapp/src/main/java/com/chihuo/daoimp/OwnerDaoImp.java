@@ -12,7 +12,7 @@ import com.chihuo.dao.OwnerDao;
 public class OwnerDaoImp extends GenericDAOImp﻿<Owner, Integer> implements
 		OwnerDao {
 	public Owner findByName(String name) {
-		Criteria crit = getSession().createCriteria(User.class).add(
+		Criteria crit = getSession().createCriteria(Owner.class).add(
 				Restrictions.eq("name", name));
 
 		return (Owner) crit.uniqueResult();
