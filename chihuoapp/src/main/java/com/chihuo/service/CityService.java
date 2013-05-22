@@ -19,4 +19,7 @@ public class CityService {
 		return dao.findAll();
 	}
 
+	public City findById(Integer id) {
+		return dao.findById(id);
+	}
 }

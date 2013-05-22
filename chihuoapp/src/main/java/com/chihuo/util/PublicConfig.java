@@ -49,5 +49,7 @@ public class PublicConfig {
 		return Boolean.parseBoolean(prop.getProperty("isLocal"));
 	}
 	
-	
+	public static String getImageUrl() {
+		return prop.getProperty("imageUrl");
+	}	
 }

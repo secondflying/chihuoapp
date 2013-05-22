@@ -27,7 +27,7 @@ import com.sun.jersey.core.header.FormDataContentDisposition;
 public class RestaurantService {
 	@Autowired
 	private RestaurantDao dao;
-	
+
 	@Autowired
 	private RecipeDao dao2;
 
@@ -39,11 +39,10 @@ public class RestaurantService {
 		return c;
 	}
 
-	public List<Restaurant> getVerified(int city,String name) {
-		//return dao.findByStatus(1);
-		return dao.findNotDeleted(city,name);
+	public List<Restaurant> getVerified(int city, String name) {
+		// return dao.findByStatus(1);
+		return dao.findNotDeleted(city, name);
 	}
-	
 
 	public List<Restaurant> getToVerify() {
 		return dao.findByStatus(0);
@@ -53,15 +52,16 @@ public class RestaurantService {
 		return dao.findByStatus(2);
 	}
 
-	public List<Restaurant> findNotDeleted(int city,String name) {
-		return dao.findNotDeleted(city,name);
+	public List<Restaurant> findNotDeleted(int city, String name) {
+		return dao.findNotDeleted(city, name);
 	}
 
 	public List<Restaurant> findByUser(Owner u) {
 		return dao.findByUser(u);
 	}
 
-	public List<Restaurant> findAround(double x, double y, double distance,int city) {
+	public List<Restaurant> findAround(double x, double y, double distance,
+			int city) {
 		double KmPerDegree = 111.12000071117;
 
 		double dis = distance / 1000 / KmPerDegree;
@@ -69,7 +69,7 @@ public class RestaurantService {
 		double xmax = x + dis;
 		double ymin = y - dis;
 		double ymax = y + dis;
-		return dao.findByExtent(xmin, xmax, ymin, ymax,city);
+		return dao.findByExtent(xmin, xmax, ymin, ymax, city);
 	}
 
 	public Restaurant create(String name, String telephone, String address,
@@ -92,7 +92,7 @@ public class RestaurantService {
 
 		if (upImg != null && !StringUtils.isEmpty(fileDetail.getFileName())) {
 			try {
-				String image = PublicHelper.saveImage(upImg);
+				String image = PublicHelper.saveImage(upImg,"");
 				r.setImage(image);
 
 			} catch (IOException e) {
@@ -128,7 +128,7 @@ public class RestaurantService {
 
 		if (upImg != null && !StringUtils.isEmpty(fileDetail.getFileName())) {
 			try {
-				String image = PublicHelper.saveImage(upImg);
+				String image = PublicHelper.saveImage(upImg,r.getImage());
 				r.setImage(image);
 
 			} catch (IOException e) {
@@ -139,6 +139,20 @@ public class RestaurantService {
 		}
 
 		dao.saveOrUpdate(r);
+	}
+
+	public void saveOrUpdate(Restaurant r) {
+		dao.saveOrUpdate(r);
+	}
+
+	public void saveOrUpdateImage(Restaurant r, InputStream upImage) {
+		try {
+			String image = PublicHelper.saveImage(upImage,r.getImage());
+			r.setImage(image);
+			dao.saveOrUpdate(r);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void delete(Restaurant restaurant) {
@@ -155,16 +169,16 @@ public class RestaurantService {
 		restaurant.setStatus(2);
 		dao.saveOrUpdate(restaurant);
 	}
-	
-	
-	public void addPinyin(){
+
+	public void addPinyin() {
 		List<Restaurant> list = dao.findAll();
 		for (Restaurant restaurant : list) {
-			restaurant.setPinyin(PinyinUtil.converterToFirstSpell(restaurant.getName()));
+			restaurant.setPinyin(PinyinUtil.converterToFirstSpell(restaurant
+					.getName()));
 			dao.saveOrUpdate(restaurant);
 		}
-		
-		List<Recipe>list2 = dao2.findAll();
+
+		List<Recipe> list2 = dao2.findAll();
 		for (Recipe recipe : list2) {
 			recipe.setPinyin(PinyinUtil.converterToFirstSpell(recipe.getName()));
 			dao2.saveOrUpdate(recipe);

@@ -31,6 +31,8 @@
 			String lastName = rs.getString("name");
 			response.getWriter().write(lastName);
 		}
+		
+		
 		conn.close();
 	} catch (Exception e) {
 		response.getWriter().write("Got an exception! ");

@@ -22,14 +22,15 @@ public class PublicHelper {
 		return DigestUtils.sha1Hex(StringUtils.join(new String[] {
 				uid.toString(), password }));
 	}
-	
+
 	public static String encryptUser(Integer uid, String password, Integer utype) {
-		String token = encryptPassword(uid,password);
+		String token = encryptPassword(uid, password);
 		return StringUtils.join(
 				new String[] { uid.toString(), token, utype.toString() }, '|');
 	}
 
-	public static String saveImage(InputStream upImg) throws IOException {
+	public static String saveImage(InputStream upImg, String oldName)
+			throws IOException {
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 		int nRead;
 		byte[] data = new byte[16384];
@@ -52,12 +53,12 @@ public class PublicHelper {
 				tmpPath = SaeUserInfo.getSaeTmpPath() + "/";
 			}
 
-			File file = new File(tmpPath + image);
-			if (file.isDirectory()) {
-				ImageIO.write(bi, "png", file);
+			File originFile = new File(tmpPath + image);
+			if (originFile.isDirectory()) {
+				ImageIO.write(bi, "png", originFile);
 			} else {
-				file.mkdirs();
-				ImageIO.write(bi, "png", file);
+				originFile.mkdirs();
+				ImageIO.write(bi, "png", originFile);
 			}
 
 			// 生成不同规格的图片
@@ -67,27 +68,50 @@ public class PublicHelper {
 					+ image);
 			File smallFile = saveScaledImage(bi, 100, 75, tmpPath + "small"
 					+ image);
-			
+
 			// 将图片保存
 			if (PublicConfig.isLocal()) {
-				file.renameTo(new File(PublicConfig.getImagePath() + "origin"
-						+ File.separator, file.getName()));
+				originFile.renameTo(new File(PublicConfig.getImagePath()
+						+ "origin" + File.separator, image));
 				bigFile.renameTo(new File(PublicConfig.getImagePath() + "big"
-						+ File.separator, file.getName()));
+						+ File.separator, image));
 				mediumFile.renameTo(new File(PublicConfig.getImagePath()
-						+ "medium" + File.separator, file.getName()));
+						+ "medium" + File.separator, image));
 				smallFile.renameTo(new File(PublicConfig.getImagePath()
-						+ "small" + File.separator, file.getName()));
+						+ "small" + File.separator, image));
+
+				if (!StringUtils.isBlank(oldName)) {
+					File oldoriginFile = new File(PublicConfig.getImagePath()
+							+ "origin" + File.separator, oldName);
+					File oldbigFile = new File(PublicConfig.getImagePath()
+							+ "big" + File.separator, oldName);
+					File oldmediumFile = new File(PublicConfig.getImagePath()
+							+ "medium" + File.separator, oldName);
+					File oldsmallFile = new File(PublicConfig.getImagePath()
+							+ "small" + File.separator, oldName);
+					oldoriginFile.delete();
+					oldbigFile.delete();
+					oldmediumFile.delete();
+					oldsmallFile.delete();
+				}
+
 			} else {
 				SaeStorage ss = new SaeStorage();
-				ss.upload("menuimages", file.getAbsolutePath(), "origin/"
-						+ file.getName());
+				ss.upload("menuimages", originFile.getAbsolutePath(), "origin/"
+						+ originFile.getName());
 				ss.upload("menuimages", bigFile.getAbsolutePath(), "big/"
-						+ file.getName());
+						+ originFile.getName());
 				ss.upload("menuimages", mediumFile.getAbsolutePath(), "medium/"
-						+ file.getName());
+						+ originFile.getName());
 				ss.upload("menuimages", smallFile.getAbsolutePath(), "small/"
-						+ file.getName());
+						+ originFile.getName());
+
+//				if (!StringUtils.isBlank(oldName)) {
+//					ss.delete("menuimages", "origin/" + oldName);
+//					ss.delete("menuimages", "big/" + oldName);
+//					ss.delete("menuimages", "medium/" + oldName);
+//					ss.delete("menuimages", "small/" + oldName);
+//				}
 			}
 
 			return image;

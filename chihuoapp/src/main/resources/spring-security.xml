@@ -15,7 +15,7 @@
 		<intercept-url pattern="/signup/*" access="permitAll" />
 		<intercept-url pattern="/logout" access="permitAll" />
 		<intercept-url pattern="/errors/**" access="permitAll" />
-		<intercept-url pattern="/shop/" access="isAuthenticated()" />
+		<intercept-url pattern="/shop/**" access="isAuthenticated()" />
 		<intercept-url pattern="/**" access="isAuthenticated()" />
 
 		<access-denied-handler error-page="/errors/403" />
@@ -23,6 +23,10 @@
 		<form-login login-page="/login/form" login-processing-url="/login" username-parameter="username" password-parameter="password" authentication-failure-url="/login/form?error"
 			default-target-url="/" />
 		<logout logout-url="/logout" logout-success-url="/login/form?logout" />
+		
+		<!-- <form-login login-page="/login/form" login-processing-url="/2/taochike/login" username-parameter="username" password-parameter="password" authentication-failure-url="/login/form?error"
+			default-target-url="/" />
+		<logout logout-url="/2/taochike/logout" logout-success-url="/login/form?logout" /> -->
 	</http>
 
 	<authentication-manager alias="authenticationManager">
@@ -34,8 +38,8 @@
 		<beans:property name="userDetailsService" ref="myUserDetailsService" />
 		<beans:property name="hideUserNotFoundExceptions" value="false" />
 	</beans:bean>
-	
-	<beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">       
-       <beans:property name="basename" value="classpath:org/springframework/security/messages_zh_CN"/>
-    </beans:bean>  
+
+	<beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<beans:property name="basename" value="classpath:org/springframework/security/messages_zh_CN" />
+	</beans:bean>
 </beans:beans>

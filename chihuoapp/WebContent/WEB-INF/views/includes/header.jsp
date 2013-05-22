@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>myCalendar: <c:out value="${pageTitle}" /></title>
+<title><c:out value="${pageTitle}" /></title>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <c:url var="cssUrl" value="/assets/bootstrap/css/bootstrap.css" />
 <link href="${cssUrl}" rel="stylesheet" />
@@ -44,7 +44,7 @@
 						<sec:authorize access="authenticated" var="authenticated" />
 						<c:choose>
 							<c:when test="${authenticated}">
-								<li>你好:<sec:authentication property="principal.name" /></li>
+								<li><div>你好:<sec:authentication property="principal.name" /></div></li>
 								<c:url var="logoutUrl" value="/logout" />
 								<li><a id="navLogoutLink" href="${logoutUrl}">退出系统</a></li>
 							</c:when>

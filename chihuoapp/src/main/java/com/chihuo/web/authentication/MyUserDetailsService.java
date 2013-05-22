@@ -1,5 +1,6 @@
 package com.chihuo.web.authentication;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import com.chihuo.bussiness.Owner;
 import com.chihuo.service.OwnerService;
 
 @Component
-public class MyUserDetailsService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService,Serializable {
 	@Autowired
 	private OwnerService ownerService;
 
@@ -29,6 +30,7 @@ public class MyUserDetailsService implements UserDetailsService {
     }
     
     private final class OwnerUserDetails extends Owner implements UserDetails {
+    	
     	OwnerUserDetails(Owner user) {
             setId(user.getId());
             setName(user.getName());

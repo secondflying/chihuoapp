@@ -40,7 +40,7 @@ public class CategoryService {
 		
 		if (upImg != null && !StringUtils.isEmpty(fileDetail.getFileName())) {
 			try {
-				String image = PublicHelper.saveImage(upImg);
+				String image = PublicHelper.saveImage(upImg,category.getImage());
 				category.setImage(image);
 
 			} catch (IOException e) {

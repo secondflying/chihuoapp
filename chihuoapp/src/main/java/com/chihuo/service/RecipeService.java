@@ -53,7 +53,7 @@ public class RecipeService {
 		
 		if (upImg != null && !StringUtils.isEmpty(fileDetail.getFileName())) {
 			try {
-				String image = PublicHelper.saveImage(upImg);
+				String image = PublicHelper.saveImage(upImg,recipe.getImage());
 				recipe.setImage(image);
 
 			} catch (IOException e) {

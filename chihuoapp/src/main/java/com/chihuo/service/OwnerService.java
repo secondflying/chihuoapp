@@ -34,6 +34,7 @@ public class OwnerService {
 		Owner u = new Owner();
 		u.setName(username);
 		u.setPassword(password);
+		u.setStatus(0);
 		dao.saveOrUpdate(u);
 		return u;
 	}
