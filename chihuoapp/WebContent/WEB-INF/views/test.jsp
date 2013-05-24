@@ -12,5 +12,6 @@
 		response.getWriter().write(
 				"session '" + name + "': "
 						+ session.getAttribute(name).toString());
+		
 	}
 %>

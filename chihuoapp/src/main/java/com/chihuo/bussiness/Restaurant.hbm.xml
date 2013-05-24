@@ -36,6 +36,9 @@
         <property name="average" type="java.lang.Integer">
             <column name="average" />
         </property>
+        <property name="description" type="string">
+            <column name="description" length="1024" />
+        </property>
         <many-to-one column="uid" name="owner" class="com.chihuo.bussiness.Owner">
         </many-to-one>
         <many-to-one column="city" name="city" class="com.chihuo.bussiness.City">

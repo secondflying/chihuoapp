@@ -6,6 +6,7 @@ public class BasicInfo {
 	private String name;
 	private String telephone;
 	private Integer average;
+	private String description;
 
 	public int getId() {
 		return id;
@@ -66,6 +67,14 @@ public class BasicInfo {
 
 	public void setY(Double y) {
 		this.y = y;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

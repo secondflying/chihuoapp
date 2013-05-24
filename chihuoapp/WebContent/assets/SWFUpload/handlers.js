@@ -14,7 +14,7 @@ function fileQueued(file) {
 	try {
 		var progress = new FileProgress(file,
 				this.customSettings.progressTarget);
-		progress.setStatus("开始上传...");
+		progress.setStatus("等待上传...");
 		progress.toggleCancel(true, this);
 
 	} catch (ex) {
@@ -78,7 +78,6 @@ function fileDialogComplete(numFilesSelected, numFilesQueued) {
 		/* I want auto start the upload and I can do that here */
 		this.startUpload();
 	} catch (ex) {
-		console.log(ex);
 		this.debug(ex);
 
 	}
@@ -123,10 +122,7 @@ function uploadSuccess(file, serverData) {
 		progress.setStatus("上传成功.");
 		progress.toggleCancel(false);
 		
-		console.log(serverData);
 		$('#' + this.customSettings.imageTarget).attr('src', serverData);
-
-
 	} catch (ex) {
 		this.debug(ex);
 	}
@@ -146,7 +142,7 @@ function uploadError(file, errorCode, message) {
 					+ ", Message: " + message);
 			break;
 		case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
-			progress.setStatus("Upload Failed.");
+			progress.setStatus("上传失败.");
 			this.debug("Error Code: Upload Failed, File name: " + file.name
 					+ ", File size: " + file.size + ", Message: " + message);
 			break;
@@ -176,9 +172,9 @@ function uploadError(file, errorCode, message) {
 			// If there aren't any files left (they were all cancelled) disable
 			// the cancel button
 			if (this.getStats().files_queued === 0) {
-				document.getElementById(this.customSettings.cancelButtonId).disabled = true;
+				//document.getElementById(this.customSettings.cancelButtonId).disabled = true;
 			}
-			progress.setStatus("Cancelled");
+			progress.setStatus("已取消");
 			progress.setCancelled();
 			break;
 		case SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED:

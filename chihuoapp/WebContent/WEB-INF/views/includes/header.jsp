@@ -1,9 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <?xml version="1.0" encoding="UTF-8" ?>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +16,8 @@
 <!--[if lt IE 9]>
           <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
+
+<jsp:include page="../includes/js.jsp" />
 </head>
 <body>
 	<div id="nav-bar" class="navbar navbar-fixed-top">
@@ -44,7 +44,10 @@
 						<sec:authorize access="authenticated" var="authenticated" />
 						<c:choose>
 							<c:when test="${authenticated}">
-								<li><div>你好:<sec:authentication property="principal.name" /></div></li>
+								<li><div>
+										你好:
+										<sec:authentication property="principal.name" />
+									</div></li>
 								<c:url var="logoutUrl" value="/logout" />
 								<li><a id="navLogoutLink" href="${logoutUrl}">退出系统</a></li>
 							</c:when>

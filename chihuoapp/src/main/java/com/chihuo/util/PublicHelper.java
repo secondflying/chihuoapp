@@ -89,10 +89,19 @@ public class PublicHelper {
 							+ "medium" + File.separator, oldName);
 					File oldsmallFile = new File(PublicConfig.getImagePath()
 							+ "small" + File.separator, oldName);
-					oldoriginFile.delete();
-					oldbigFile.delete();
-					oldmediumFile.delete();
-					oldsmallFile.delete();
+					
+					if (oldoriginFile.isFile() && oldoriginFile.exists()) {
+						oldoriginFile.delete();
+					}
+					if (oldbigFile.isFile() && oldbigFile.exists()) {
+						oldbigFile.delete();
+					}
+					if (oldmediumFile.isFile() && oldmediumFile.exists()) {
+						oldmediumFile.delete();
+					}
+					if (oldsmallFile.isFile() && oldsmallFile.exists()) {
+						oldsmallFile.delete();
+					}
 				}
 
 			} else {
@@ -106,12 +115,20 @@ public class PublicHelper {
 				ss.upload("menuimages", smallFile.getAbsolutePath(), "small/"
 						+ originFile.getName());
 
-//				if (!StringUtils.isBlank(oldName)) {
-//					ss.delete("menuimages", "origin/" + oldName);
-//					ss.delete("menuimages", "big/" + oldName);
-//					ss.delete("menuimages", "medium/" + oldName);
-//					ss.delete("menuimages", "small/" + oldName);
-//				}
+				if (!StringUtils.isBlank(oldName)) {
+					if (ss.fileExists("menuimages", "origin/" + oldName)) {
+						ss.delete("menuimages", "origin/" + oldName);
+					}
+					if (ss.fileExists("menuimages", "big/" + oldName)) {
+						ss.delete("menuimages", "big/" + oldName);
+					}
+					if (ss.fileExists("menuimages", "medium/" + oldName)) {
+						ss.delete("menuimages", "medium/" + oldName);
+					}
+					if (ss.fileExists("menuimages", "small/" + oldName)) {
+						ss.delete("menuimages", "small/" + oldName);
+					}
+				}
 			}
 
 			return image;

@@ -250,6 +250,9 @@ public class OrderResource {
 		notificationService.sendNotificationToWaiter("结账", order.getDesk()
 				.getName(), order.getId(), waiterDevice);
 
+		//TODO 用同样的开台码重新开台
+		orderService.createOrder(order.getDesk(), order.getNumber(), restaurant, order.getWaiter(),order.getCode());
+		
 		return Response.status(Response.Status.OK).entity(order)
 				.type(MediaType.APPLICATION_JSON).build();
 	}

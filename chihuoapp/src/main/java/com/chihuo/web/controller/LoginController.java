@@ -1,7 +1,6 @@
 package com.chihuo.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import com.chihuo.service.RestaurantService;
 import com.chihuo.service.UserContext;
 import com.chihuo.util.PinyinUtil;
 import com.chihuo.web.form.Signup;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 @Controller
 public class LoginController {
@@ -33,13 +31,20 @@ public class LoginController {
 
 	@Autowired
 	private RestaurantService restaurantService;
-	
+
 	@Autowired
 	private CityService cityService;
 
 	@RequestMapping("/")
-	public String welcome() {
+	public String welcome(HttpServletRequest request) {
+
 		return "index";
+	}
+	
+	@RequestMapping("/test")
+	public String test(HttpServletRequest request) {
+
+		return "test";
 	}
 
 	@RequestMapping("/login/form")
@@ -48,9 +53,10 @@ public class LoginController {
 	}
 
 	@RequestMapping("/signup/form")
-	public String signup(@ModelAttribute("signupForm") Signup signup,Model model) {
+	public String signup(@ModelAttribute("signupForm") Signup signup,
+			Model model) {
 		return "signup";
-}
+	}
 
 	@RequestMapping(value = "/signup/new", method = RequestMethod.POST)
 	public String signup(@ModelAttribute("signupForm") Signup signupForm,
@@ -93,7 +99,7 @@ public class LoginController {
 		restaurant.setPinyin(PinyinUtil.converterToFirstSpell(signupForm
 				.getRestaurantName()));
 		restaurant.setStatus(1);
-		//TODO 获取城市列表
+		// TODO 获取城市列表
 		restaurant.setCity(cityService.findById(1));
 		restaurantService.saveOrUpdate(restaurant);
 

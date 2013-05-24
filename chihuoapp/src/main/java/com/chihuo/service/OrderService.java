@@ -60,8 +60,22 @@ public class OrderService {
 		order.setRestaurant(restaurant);
 		order.setWaiter(u);
 
-		// TODO 在生成的code里面包含桌号，避免同时有相同code的order
+		// TODO 在生成的code里面包含桌号，避免同时有相同code的order,保证status为1的code唯一
 		order.setCode(Math.round(Math.random() * 9000 + 1000) + "");
+		dao.saveOrUpdate(order);
+		return order;
+	}
+	
+	public Order createOrder(Desk d, int number, Restaurant restaurant, Waiter u,String code) {
+		Order order = new Order();
+		order.setDesk(d);
+		order.setNumber(number);
+		order.setStarttime(new Date());
+		order.setStatus(1);
+		order.setRestaurant(restaurant);
+		order.setWaiter(u);
+
+		order.setCode(code);
 		dao.saveOrUpdate(order);
 		return order;
 	}

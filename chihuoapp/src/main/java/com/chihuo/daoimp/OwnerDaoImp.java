@@ -5,7 +5,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.chihuo.bussiness.Owner;
-import com.chihuo.bussiness.User;
 import com.chihuo.dao.OwnerDao;
 
 @Repository

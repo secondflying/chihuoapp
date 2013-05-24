@@ -27,6 +27,7 @@ import com.chihuo.service.OwnerService;
 import com.chihuo.service.RestaurantService;
 import com.chihuo.service.UserContext;
 import com.chihuo.util.PublicConfig;
+import com.chihuo.util.PublicHelper;
 import com.chihuo.web.form.BasicInfo;
 
 @Controller
@@ -56,6 +57,7 @@ public class AdminController {
 		basicInfo.setName(list.get(0).getName());
 		basicInfo.setTelephone(list.get(0).getTelephone());
 		basicInfo.setAverage(list.get(0).getAverage());
+		basicInfo.setDescription(list.get(0).getDescription());
 
 		basicInfo.setId(list.get(0).getId());
 		basicInfo.setAddress(list.get(0).getAddress());
@@ -79,6 +81,7 @@ public class AdminController {
 		restaurant.setName(basicInfo.getName());
 		restaurant.setTelephone(basicInfo.getTelephone());
 		restaurant.setAverage(basicInfo.getAverage());
+		restaurant.setDescription(basicInfo.getDescription());
 		restaurantService.saveOrUpdate(restaurant);
 		redirectAttributes.addFlashAttribute("basic", "保存成功");
 		return "redirect:/shop/info";
@@ -89,17 +92,15 @@ public class AdminController {
 	public String updateImageInfo(HttpServletRequest request,
 			HttpServletResponse response) throws IllegalStateException, IOException, ServletException {
 		Owner owner = userContext.getCurrentUser();
-		System.out.println("userid:" + owner.getId());
 		List<Restaurant> list = restaurantService.findByUser(owner);
 		Restaurant restaurant = list.get(0);
-		System.out.println("rid:" + restaurant.getId());
-		
 		
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;   
         CommonsMultipartFile file = (CommonsMultipartFile) multipartRequest.getFile("file");
         
-		System.out.println("filesize:" + file.getSize());
-        restaurantService.saveOrUpdateImage(restaurant, file.getInputStream());
+		String imageName = PublicHelper.saveImage(file.getInputStream(), restaurant.getImage());
+		restaurant.setImage(imageName);
+		restaurantService.saveOrUpdate(restaurant);
 		return PublicConfig.getImageUrl() + restaurant.getImage();
 	}
 

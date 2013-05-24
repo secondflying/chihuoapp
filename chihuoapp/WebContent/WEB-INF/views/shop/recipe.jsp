@@ -29,10 +29,6 @@
 			<form:errors path="average" cssClass="error" />
 			<br />
 
-			餐厅描述：
-			<form:textarea rows="5" path="description" name='description' id="description" cssClass="input-xlarge" />
-			<br />
-			
 			<c:if test="${not empty basic}">
 				<div class="alert alert-success" id="basicSuccess">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
