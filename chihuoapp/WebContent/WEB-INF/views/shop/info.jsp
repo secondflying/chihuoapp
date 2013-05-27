@@ -10,27 +10,27 @@
 		<fieldset>
 			<legend>基本信息</legend>
 			餐厅编码：
-			<form:input path="id" readonly="true" cssClass="input-xlarge" />
+			<form:input path="id" readonly="true" cssClass="input-xxlarge" />
 			<form:hidden path="id" />
 			<br />
 
 			餐厅名称：
-			<form:input path="name" name='name' id="name" cssClass="input-xlarge" />
+			<form:input path="name" name='name' id="name" cssClass="input-xxlarge" />
 			<form:errors path="name" cssClass="error" />
 			<br />
 
 			餐厅电话：
-			<form:input path="telephone" name='telephone' id="telephone" cssClass="input-xlarge" />
+			<form:input path="telephone" name='telephone' id="telephone" cssClass="input-xxlarge" />
 			<form:errors path="telephone" cssClass="error" />
 			<br />
 
 			人均消费：
-			<form:input path="average" name='average' id="average" cssClass="input-xlarge" />
+			<form:input path="average" name='average' id="average" cssClass="input-xxlarge" />
 			<form:errors path="average" cssClass="error" />
 			<br />
 
 			餐厅描述：
-			<form:textarea rows="5" path="description" name='description' id="description" cssClass="input-xlarge" />
+			<form:textarea rows="5" path="description" name='description' id="description" cssClass="input-xxlarge" />
 			<br />
 			
 			<c:if test="${not empty basic}">

@@ -278,7 +278,38 @@
 			<artifactId>json</artifactId>
 			<version>20090211</version>
 		</dependency>
-
+		
+		<dependency>  
+		    <groupId>org.apache</groupId>  
+		    <artifactId>jpush-api</artifactId>  
+		    <version>1.0</version>  
+		    <scope>system</scope>  
+		    <systemPath>${basedir}/WebContent/WEB-INF/lib/jpush-api.jar</systemPath>  
+		</dependency>  
+		
+		<dependency>  
+		    <groupId>org.apache</groupId>  
+		    <artifactId>commons-httpclient</artifactId>  
+		    <version>1.0</version>  
+		    <scope>system</scope>  
+		    <systemPath>${basedir}/WebContent/WEB-INF/lib/commons-httpclient-3.1.jar</systemPath>  
+		</dependency> 
+		
+		<dependency>  
+		    <groupId>org.apache</groupId>  
+		    <artifactId>pinyin4j</artifactId>  
+		    <version>1.0</version>  
+		    <scope>system</scope>  
+		    <systemPath>${basedir}/WebContent/WEB-INF/lib/pinyin4j-2.5.0.jar</systemPath>  
+		</dependency> 
+		
+		<dependency>  
+		    <groupId>org.apache</groupId>  
+		    <artifactId>sae-local</artifactId>  
+		    <version>1.0</version>  
+		    <scope>system</scope>  
+		    <systemPath>${basedir}/WebContent/WEB-INF/lib/sae-local-1.0.0.jar</systemPath>  
+		</dependency> 
 
 		<!-- 用户测试的包 -->
 		<dependency>

@@ -44,6 +44,7 @@ public class LoginController {
 	@RequestMapping("/test")
 	public String test(HttpServletRequest request) {
 
+		request.getSession().setAttribute("name", "alter");
 		return "test";
 	}
 
