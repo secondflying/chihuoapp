@@ -88,4 +88,13 @@ public class DeskDaoImp extends GenericDAOImp﻿<Desk, Integer> implements DeskD
 		}
 		return result;
 	}
+
+	@Override
+	public boolean checkNameExistInRestaurant(Restaurant r, String name) {
+		Criteria crit = getSession().createCriteria(Desk.class).add(Restrictions.eq("name", name)).add(Restrictions.not(Restrictions.eq("status", -1)));
+		crit = crit.createCriteria("restaurant").add(Restrictions.eq("id", r.getId()));
+		crit.setCacheable(true);
+
+		return crit.list().size() > 0;
+	}
 }

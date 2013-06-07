@@ -1,6 +1,7 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
@@ -9,15 +10,17 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <c:url var="cssUrl" value="/assets/bootstrap/css/bootstrap.css" />
 <link href="${cssUrl}" rel="stylesheet" />
-<c:url var="cssUrl2" value="/assets/css/css.css" />
+<c:url var="cssUrl2" value="/assets/jquery/plugin/DataTables/css/jquery.dataTables.css" />
 <link href="${cssUrl2}" rel="stylesheet" />
+<c:url var="cssUrl3" value="/assets/css/css.css" />
+<link href="${cssUrl3}" rel="stylesheet" />
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
           <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 
-<jsp:include page="../includes/js.jsp" />
+<jsp:include page="js.jsp" />
 </head>
 <body>
 	<div id="nav-bar" class="navbar navbar-fixed-top">
@@ -27,16 +30,49 @@
 				<a class="brand" href="${welcomeUrl}">管理平台</a>
 				<div class="nav-collapse">
 					<ul class="nav">
+
+						<c:set var="cssClass" value=" " />
+						<c:if test="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'], '/shop/info')}">
+							<c:set var="cssClass" value="active" />
+						</c:if>
 						<c:url var="infoUrl" value="/shop/info" />
-						<li><a id="infoLink" href="${infoUrl}">餐厅信息</a></li>
+						<li class="${cssClass}"><a id="infoLink" href="${infoUrl}">餐厅信息</a></li>
+
+						<c:set var="cssClass" value=" " />
+						<c:if test="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'], '/shop/recipe')}">
+							<c:set var="cssClass" value="active" />
+						</c:if>
 						<c:url var="recipeUrl" value="/shop/recipe" />
-						<li><a id="recipeLink" href="${recipeUrl}">菜品维护</a></li>
+						<li class="${cssClass}"><a id="recipeLink" href="${recipeUrl}">菜品维护</a></li>
+
+						<c:set var="cssClass" value=" " />
+						<c:if test="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'], '/shop/desk')}">
+							<c:set var="cssClass" value="active" />
+						</c:if>
 						<c:url var="deskUrl" value="/shop/desk" />
-						<li><a id="deskLink" href="${deskUrl}">餐桌维护</a></li>
+						<li class="${cssClass}"><a id="deskLink" href="${deskUrl}">餐桌维护</a></li>
+
+						<c:set var="cssClass" value=" " />
+						<c:if test="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'], '/shop/order')}">
+							<c:set var="cssClass" value="active" />
+						</c:if>
 						<c:url var="orderUrl" value="/shop/order" />
-						<li><a id="orderLink" href="${orderUrl}">订单管理</a></li>
+						<li class="${cssClass}"><a id="orderLink" href="${orderUrl}">订单管理</a></li>
+
+						<c:set var="cssClass" value=" " />
+						<c:if test="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'], '/shop/waiter')}">
+							<c:set var="cssClass" value="active" />
+						</c:if>
 						<c:url var="waiterUrl" value="/shop/waiter" />
-						<li><a id="waiterLink" href="${waiterUrl}">服务员管理</a></li>
+						<li class="${cssClass}"><a id="waiterLink" href="${waiterUrl}">服务员管理</a></li>
+
+						<c:set var="cssClass" value=" " />
+						<c:if test="${fn:endsWith(requestScope['javax.servlet.forward.servlet_path'], '/shop/report')}">
+							<c:set var="cssClass" value="active" />
+						</c:if>
+						<c:url var="reportUrl" value="/shop/report" />
+						<li class="${cssClass}"><a id="reportLink" href="${reportUrl}">营业报表</a></li>
+
 					</ul>
 				</div>
 				<div id="nav-account" class="nav-collapse pull-right">

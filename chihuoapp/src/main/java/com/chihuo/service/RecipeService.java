@@ -39,30 +39,7 @@ public class RecipeService {
 		return dao.findByIdInRestaurant(restaurant, id);
 	}
 
-	public Recipe createOrUpdate(String name, Double price, String description,
-			InputStream upImg, FormDataContentDisposition fileDetail,
-			Category category, Restaurant restaurant, Recipe recipe) {
-
-		recipe.setName(name);
-		recipe.setPinyin(PinyinUtil.converterToFirstSpell(name));
-		recipe.setPrice(price);
-		recipe.setDescription(description);
-		recipe.setRestaurant(restaurant);
-		recipe.setStatus(0);
-		recipe.setCategory(category);
-		
-		if (upImg != null && !StringUtils.isEmpty(fileDetail.getFileName())) {
-			try {
-				String image = PublicHelper.saveImage(upImg,recipe.getImage());
-				recipe.setImage(image);
-
-			} catch (IOException e) {
-				throw new WebApplicationException(Response
-						.status(Response.Status.BAD_REQUEST).entity("保存图片失败")
-						.type(MediaType.TEXT_PLAIN).build());
-			}
-		}
-
+	public Recipe createOrUpdate(Recipe recipe) {
 		dao.saveOrUpdate(recipe);
 		return recipe;
 	}

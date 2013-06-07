@@ -28,6 +28,11 @@ public class DeskService {
 	public List<DeskStatusView> findByRestaurant(Restaurant restaurant) {
 		return dao.findByRestaurantWithStatus(restaurant);
 	}
+	
+	public boolean checkNameExistInRestaurant(Restaurant r, String name){
+		return dao.checkNameExistInRestaurant(r, name);
+	}
+
 
 	public Desk createOrUpdate(String name, int capacity, DeskType category,
 			Restaurant restaurant, Desk desk) {

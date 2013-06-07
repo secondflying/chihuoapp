@@ -11,6 +11,8 @@ public interface DeskDao extends GenericDao<Desk, Integer> {
 	public List<Desk> findByRestaurant(Restaurant r);
 
 	public Desk findByIdInRestaurant(Restaurant r, int id);
+	
+	public boolean checkNameExistInRestaurant(Restaurant r, String name);
 
 	public List<Desk> findByType(DeskType r);
 	

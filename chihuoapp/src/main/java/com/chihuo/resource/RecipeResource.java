@@ -40,30 +40,30 @@ public class RecipeResource {
 		return recipe;
 	}
 
-	@POST
-	@RolesAllowed({ "OWNER" })
-	@Consumes("multipart/form-data")
-	public Response update(@FormDataParam("name") String name,
-			@FormDataParam("price") Double price,
-			@FormDataParam("description") String description,
-			@DefaultValue("-1") @FormDataParam("cid") int cid,
-			@FormDataParam("image") InputStream upImg,
-			@FormDataParam("image") FormDataContentDisposition fileDetail) {
-
-		Category category = null;
-		if (cid != -1) {
-			category = categoryService.findByIdInRestaurant(restaurant, cid);
-			if (category == null || category.getStatus() == -1) {
-				return Response.status(Response.Status.BAD_REQUEST)
-						.entity("种类ID不存在").type(MediaType.TEXT_PLAIN).build();
-			}
-		}
-
-		recipeService.createOrUpdate(name, price, description, upImg,
-				fileDetail, category, restaurant, recipe);
-
-		return Response.status(Response.Status.OK).build();
-	}
+//	@POST
+//	@RolesAllowed({ "OWNER" })
+//	@Consumes("multipart/form-data")
+//	public Response update(@FormDataParam("name") String name,
+//			@FormDataParam("price") Double price,
+//			@FormDataParam("description") String description,
+//			@DefaultValue("-1") @FormDataParam("cid") int cid,
+//			@FormDataParam("image") InputStream upImg,
+//			@FormDataParam("image") FormDataContentDisposition fileDetail) {
+//
+//		Category category = null;
+//		if (cid != -1) {
+//			category = categoryService.findByIdInRestaurant(restaurant, cid);
+//			if (category == null || category.getStatus() == -1) {
+//				return Response.status(Response.Status.BAD_REQUEST)
+//						.entity("种类ID不存在").type(MediaType.TEXT_PLAIN).build();
+//			}
+//		}
+//
+//		recipeService.createOrUpdate(name, price, description, upImg, category,
+//				restaurant, recipe);
+//
+//		return Response.status(Response.Status.OK).build();
+//	}
 
 	@DELETE
 	@RolesAllowed({ "OWNER" })

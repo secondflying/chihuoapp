@@ -6,7 +6,7 @@
 <c:set var="pageTitle" value="餐厅信息" scope="request" />
 <jsp:include page="../includes/header.jsp" />
 <section id="basicInfo" class="well">
-	<form:form action="/shop/info/basic" method="post" modelAttribute="basicInfo" cssStyle="margin:0;">
+	<form:form action="/shop/info/basic" method="post" modelAttribute="basicInfo">
 		<fieldset>
 			<legend>基本信息</legend>
 			餐厅编码：
@@ -65,7 +65,7 @@
 		</c:choose>
 		<br />
 
-		<form id="form1" action="/shop/info/image" method="post" enctype="multipart/form-data"  style="margin:0;">
+		<form id="form1" action="/shop/info/image" method="post" enctype="multipart/form-data">
 			<div id="swfu-placeholder"></div>
 			<div class="fieldset flash" id="fsUploadProgress"></div>
 		</form>
@@ -77,7 +77,7 @@
 		<legend>位置信息</legend>
 		<div id="mapContainer" style="height: 300px; border: solid 1px #cccccc"></div>
 		<br />
-		<form:form action="/shop/info/address" method="post" modelAttribute="basicInfo" cssStyle="margin:0;">
+		<form:form action="/shop/info/address" method="post" modelAttribute="basicInfo">
 			<div style=" font-size:12px; color:#666;">在地址框中输入餐厅地址后，点击地图，地图定位到该地址，之后可拖动锚点微调地址</div>
 			地址：
 			<form:input path="address" cssClass="input-xlarge" />

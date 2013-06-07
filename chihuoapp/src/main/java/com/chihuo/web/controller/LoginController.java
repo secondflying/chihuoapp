@@ -36,8 +36,7 @@ public class LoginController {
 	private CityService cityService;
 
 	@RequestMapping("/")
-	public String welcome(HttpServletRequest request) {
-
+	public String welcome() {
 		return "index";
 	}
 	

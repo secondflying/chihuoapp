@@ -1,7 +1,5 @@
 package com.chihuo.resource;
 
-import java.util.List;
-
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -40,7 +38,7 @@ public class MyOwnerResource {
 	@RolesAllowed({ "OWNER" })
 	@Path("/restaurants")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Restaurant> getMyRestaurants(
+	public Restaurant getMyRestaurants(
 			@Context SecurityContext securityContext) {
 		Owner owner = ownerService.getLoginOwner(securityContext);
 		if (owner == null) {

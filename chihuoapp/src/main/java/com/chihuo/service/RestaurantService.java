@@ -56,8 +56,12 @@ public class RestaurantService {
 		return dao.findNotDeleted(city, name);
 	}
 
-	public List<Restaurant> findByUser(Owner u) {
-		return dao.findByUser(u);
+	public Restaurant findByUser(Owner u) {
+		List<Restaurant> list = dao.findByUser(u);
+		if (list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
 	}
 
 	public List<Restaurant> findAround(double x, double y, double distance,

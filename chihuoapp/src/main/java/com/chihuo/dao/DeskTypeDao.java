@@ -10,4 +10,5 @@ public interface DeskTypeDao extends GenericDao<DeskType, Integer> {
 
 	public DeskType findByIdInRestaurant(Restaurant r, int id);
 
+	public DeskType findByNameInRestaurant(Restaurant r, String name);
 }

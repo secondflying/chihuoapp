@@ -23,11 +23,10 @@
 
 		<form-login login-page="/login/form" login-processing-url="/login" username-parameter="username" password-parameter="password" authentication-failure-url="/login/form?error"
 			default-target-url="/" />
+			
 		<logout logout-url="/logout" logout-success-url="/login/form?logout" />
 		
-		<!-- <form-login login-page="/login/form" login-processing-url="/2/taochike/login" username-parameter="username" password-parameter="password" authentication-failure-url="/login/form?error"
-			default-target-url="/" />
-		<logout logout-url="/2/taochike/logout" logout-success-url="/login/form?logout" /> -->
+	<remember-me key="taochikeweite" token-validity-seconds="86400" user-service-ref="myUserDetailsService" />	
 	</http>
 
 	<authentication-manager alias="authenticationManager">

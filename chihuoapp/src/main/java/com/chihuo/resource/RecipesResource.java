@@ -37,81 +37,83 @@ public class RecipesResource {
 
 	@Context
 	ResourceContext resourceContext;
-	
+
 	@Autowired
 	CategoryService categoryService;
-	
+
 	@Autowired
 	RecipeService recipeService;
-	
 
 	@GET
 	@Produces("application/json; charset=UTF-8")
 	public Response getRecipes(@DefaultValue("-1") @QueryParam("cid") int cid) {
 		if (cid != -1) {
-			Category category = categoryService.findByIdInRestaurant(restaurant, cid);
+			Category category = categoryService.findByIdInRestaurant(
+					restaurant, cid);
 			if (category == null || category.getStatus() == -1) {
 				return Response.status(Response.Status.BAD_REQUEST)
 						.entity("种类ID不存在").type(MediaType.TEXT_PLAIN).build();
 			}
-			
+
 			List<Recipe> list = recipeService.findByCategory(category);
-			GenericEntity<List<Recipe>> entity = new GenericEntity<List<Recipe>>(list) {};
-			return Response.status(Response.Status.OK)
-					.entity(entity).build();
-		}else {
+			GenericEntity<List<Recipe>> entity = new GenericEntity<List<Recipe>>(
+					list) {
+			};
+			return Response.status(Response.Status.OK).entity(entity).build();
+		} else {
 			List<Recipe> list = recipeService.findByRestaurant(restaurant);
-			GenericEntity<List<Recipe>> entity = new GenericEntity<List<Recipe>>(list) {};
-			return Response.status(Response.Status.OK)
-					.entity(entity).build();
+			GenericEntity<List<Recipe>> entity = new GenericEntity<List<Recipe>>(
+					list) {
+			};
+			return Response.status(Response.Status.OK).entity(entity).build();
 		}
 	}
 
-	@POST
-	@RolesAllowed({"OWNER"})
-	@Consumes("multipart/form-data")
-	public Response create(@FormDataParam("name") String name,
-			@FormDataParam("price") Double price,
-			@FormDataParam("description") String description,
-			@DefaultValue("-1") @FormDataParam("cid") int cid,
-			@FormDataParam("image") InputStream upImg,
-		@FormDataParam("image") FormDataContentDisposition fileDetail) {
-
-		Category category = null;
-		if (cid != -1) {
-			 category = categoryService.findByIdInRestaurant(restaurant, cid);
-			if (category == null || category.getStatus() == -1) {
-				return Response.status(Response.Status.BAD_REQUEST)
-						.entity("种类ID不存在").type(MediaType.TEXT_PLAIN).build();
-			}
-		}
-		
-		Recipe recipe = recipeService.createOrUpdate(name, price,description, upImg, fileDetail, category,restaurant, new Recipe());
-
-
-		return Response.created(URI.create(String.valueOf(recipe.getId())))
-				.build();
-	}
+//	@POST
+//	@RolesAllowed({ "OWNER" })
+//	@Consumes("multipart/form-data")
+//	public Response create(@FormDataParam("name") String name,
+//			@FormDataParam("price") Double price,
+//			@FormDataParam("description") String description,
+//			@DefaultValue("-1") @FormDataParam("cid") int cid,
+//			@FormDataParam("image") InputStream upImg,
+//			@FormDataParam("image") FormDataContentDisposition fileDetail) {
+//
+//		Category category = null;
+//		if (cid != -1) {
+//			category = categoryService.findByIdInRestaurant(restaurant, cid);
+//			if (category == null || category.getStatus() == -1) {
+//				return Response.status(Response.Status.BAD_REQUEST)
+//						.entity("种类ID不存在").type(MediaType.TEXT_PLAIN).build();
+//			}
+//		}
+//
+//		Recipe recipe = recipeService.createOrUpdate(name, price, description,
+//				upImg, category, restaurant, new Recipe());
+//
+//		return Response.created(URI.create(String.valueOf(recipe.getId())))
+//				.build();
+//	}
 
 	@Path("{id}")
 	public RecipeResource getSingleResource(@PathParam("id") int id) {
-		Recipe c = recipeService.findByIdInRestaurant(restaurant,id);
+		Recipe c = recipeService.findByIdInRestaurant(restaurant, id);
 		checkNull(c);
-		
-		RecipeResource resource = resourceContext.getResource(RecipeResource.class);
+
+		RecipeResource resource = resourceContext
+				.getResource(RecipeResource.class);
 		resource.setRestaurant(restaurant);
 		resource.setRecipe(c);
-		
+
 		return resource;
 	}
-	
-	private void checkNull(Recipe c){
-		if (c == null ||c.getStatus() == -1) {
+
+	private void checkNull(Recipe c) {
+		if (c == null || c.getStatus() == -1) {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 		}
 	}
-	
-	
+
 	public Restaurant getRestaurant() {
 		return restaurant;
 	}

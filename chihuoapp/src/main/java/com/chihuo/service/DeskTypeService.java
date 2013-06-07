@@ -28,6 +28,10 @@ public class DeskTypeService {
 	public DeskType createOrUpdate(String name, Restaurant restaurant,
 			DeskType deskType) {
 
+		DeskType deskType1 = dao.findByNameInRestaurant(restaurant, name);
+		if (deskType1 != null) {
+			return deskType1;
+		}
 		deskType.setName(name);
 		deskType.setRestaurant(restaurant);
 		deskType.setStatus(0);
