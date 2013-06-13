@@ -106,7 +106,7 @@
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="name">名称</label>
+				<label class="control-label" for="name">描述</label>
 				<div class="controls">
 					<textarea rows="5" class="span4" name="catedescription" id="catedescription"></textarea>
 					<span class="help-inline"></span>

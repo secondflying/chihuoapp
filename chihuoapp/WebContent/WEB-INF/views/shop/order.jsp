@@ -3,84 +3,86 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<c:set var="pageTitle" value="菜品维护" scope="request" />
+<c:set var="pageTitle" value="订单管理" scope="request" />
 <jsp:include page="../includes/header.jsp" />
 
-<section class="well">
-	<fieldset>
-		<legend>
-			菜品类型
-			<a class="btn btn-success pull-right" href="#addTypes-modal" data-toggle="modal">
-				<i class="icon-plus icon-white"></i> 新增
-			</a>
-		</legend>
-		<ul id="cateList" class="nav nav-pills" style="margin: 0;">
-			<c:choose>
-				<c:when test="${empty types}">
-				尚未添加菜品分类
-			</c:when>
-				<c:otherwise>
-					<c:url var="infoUrl" value="/shop/recipe" />
-					<li id="cate_all" class="active"><a href="${infoUrl }">所有</a></li>
-				</c:otherwise>
-			</c:choose>
-
-			<c:forEach items="${types}" var="t">
-				<c:set var="cate" value="${t.id }"></c:set>
-				<c:url var="infoUrl" value="/shop/recipe?cate=${cate }" />
-				<li id="cate_${cate}" class=""><a href="${infoUrl }">
-						<c:out value="${t.name}" />
-					</a></li>
-			</c:forEach>
-		</ul>
-
-	</fieldset>
-</section>
 
 <section class="well">
 	<fieldset>
-		<legend>
-			菜品列表
-			<a class="btn btn-success pull-right" href="#addOne-modal" data-toggle="modal">
-				<i class="icon-plus icon-white"></i> 新增
-			</a>
-			<a class="btn btn-success pull-right" href="#addBatch-modal" data-toggle="modal">
-				<i class="icon-plus icon-white"></i>批量新增
-			</a>
-		</legend>
+		<legend> 订单管理 </legend>
 		<c:if test="${success != null}">
-				<div class="alert alert-success"  id="successMessage">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong><c:out value="${success}" /></strong>
-				</div>
-				<script>
-					$("#successMessage").delay(2000).slideUp("slow");
-				</script>
-			</c:if>
+			<div class="alert alert-success" id="successMessage">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong><c:out value="${success}" /></strong>
+			</div>
+			<script>
+				$("#successMessage").delay(2000).slideUp("slow");
+			</script>
+		</c:if>
 		<table id="objList" class="table  table-bordered table-hover" style="margin: 0;">
 			<thead>
 				<tr>
-					<th align="center">图片</th>
-					<th align="center">名称</th>
-					<th align="center">价格</th>
-					<th align="center">编辑</th>
+					<th align="center">订单号</th>
+					<th align="center">餐桌</th>
+					<th align="center">就餐人数</th>
+					<th align="center">开台时间</th>
+					<th align="center">金额</th>
+					<th align="center">状态</th>
+					<th align="center">管理</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:if test="${empty recipes}">
+				<c:if test="${empty orders}">
 					<tr>
-						<td colspan="4">无菜品</td>
+						<td colspan="4">无订单</td>
 					</tr>
 
 				</c:if>
-				<c:forEach items="${recipes}" var="recipe">
+				<c:forEach items="${orders}" var="ord">
 					<tr class="${cssClass}">
-						<td><img src="${imageUrl}/${recipe.image}" id="restaurantImage" /></td>
-						<td><c:out value="${recipe.name}" /></td>
-						<td><c:out value="${recipe.price}" /></td>
+						<fmt:formatDate value="${ord.starttime}" type="both" pattern="yyyy-MM-dd HH:mm" var="when" />
+
+						<td><c:out value="${ord.code}" /></td>
+						<td><c:out value="${ord.desk.name}" /></td>
+						<td><c:out value="${ord.number}" /></td>
+						<td><c:out value="${when}" /></td>
+						<td><c:out value="${ord.priceAll}" /></td>
 						<td>
-							<button class="btn btn-small btn-warning" type="button" onclick="editOne('${recipe.id}','${recipe.name}','${recipe.price}','${recipe.description}','${recipe.category.id}')">编辑</button>
-							<button class="btn btn-small btn-danger" type="button" onclick="deleteOne('${recipe.id}')">删除</button>
+							<c:choose>
+								<c:when test="${ord.status == 1}">
+									新开台
+								</c:when>
+								<c:when test="${ord.status == 3}">
+									请求结账
+								</c:when>
+								<c:when test="${ord.status == 4}">
+									已结账
+								</c:when>
+								<c:when test="${ord.status == 5}">
+									撤单
+								</c:when>
+								<c:otherwise>
+							   		未知状态
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td>
+							<button class="btn btn-small btn-warning" type="button" onclick="editOne('${ord.id}')">详情</button> <c:choose>
+								<c:when test="${ord.status == 1}">
+									<button class="btn btn-small btn-warning" type="button" onclick="editOne('${ord.id}')">结账</button>
+									<button class="btn btn-small btn-danger" type="button" onclick="editOne('${ord.id}')">撤单</button>
+								</c:when>
+								<c:when test="${ord.status == 3}">
+									<button class="btn btn-small btn-warning" type="button" onclick="editOne('${ord.id}')">结账</button>
+									<button class="btn btn-small btn-danger" type="button" onclick="editOne('${ord.id}')">撤单</button>
+								</c:when>
+								<c:when test="${ord.status == 4}">
+								</c:when>
+								<c:when test="${ord.status == 5}">
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
 						</td>
 
 					</tr>
@@ -342,8 +344,7 @@
 								form.submit();
 							}
 						});
-				
-				
+
 				$("#editOne-form").validate(
 						{
 							rules : {
@@ -400,7 +401,6 @@
 
 		return false;
 	}
-
 
 	function editOne(id, name, price, description, cate) {
 		$("#editID").val(id);

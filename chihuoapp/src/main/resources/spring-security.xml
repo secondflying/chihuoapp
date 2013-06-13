@@ -22,7 +22,7 @@
 		<access-denied-handler error-page="/errors/403" />
 
 		<form-login login-page="/login/form" login-processing-url="/login" username-parameter="username" password-parameter="password" authentication-failure-url="/login/form?error"
-			default-target-url="/" />
+			default-target-url="/" always-use-default-target="true"  />
 			
 		<logout logout-url="/logout" logout-success-url="/login/form?logout" />
 		

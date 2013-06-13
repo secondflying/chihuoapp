@@ -17,8 +17,8 @@
 		<ul id="cateList" class="nav nav-pills" style="margin: 0;">
 			<c:choose>
 				<c:when test="${empty types}">
-				尚未添加餐桌类型
-			</c:when>
+					尚未添加餐桌类型
+				</c:when>
 				<c:otherwise>
 					<c:url var="infoUrl" value="/shop/desk" />
 					<li id="cate_all" class="active"><a href="${infoUrl }">所有</a></li>

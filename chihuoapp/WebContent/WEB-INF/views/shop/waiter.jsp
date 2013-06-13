@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<c:set var="pageTitle" value="菜品维护" scope="request" />
+<c:set var="pageTitle" value="服务员列表" scope="request" />
 <jsp:include page="../includes/header.jsp" />
 
 <section class="well">
